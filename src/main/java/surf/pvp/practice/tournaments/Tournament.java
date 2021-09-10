@@ -31,7 +31,7 @@ public class Tournament {
     private List<Player> originalList = new ArrayList<>();
 
     private TournamentState tournamentState = TournamentState.WAITING;
-    private int round, countdown;
+    private int round = 1, countdown = 5;
 
     /**
      * Starts a tournament
