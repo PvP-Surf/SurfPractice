@@ -5,9 +5,12 @@ import com.mongodb.client.model.ReplaceOptions;
 import lombok.AllArgsConstructor;
 import org.bson.Document;
 import surf.pvp.practice.SurfPractice;
+import surf.pvp.practice.clan.Clan;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileStorage;
 import surf.pvp.practice.profile.loadout.CustomLoadOut;
+
+import java.util.UUID;
 
 @AllArgsConstructor
 public class ProfileMongoStorage implements ProfileStorage {
@@ -38,6 +41,15 @@ public class ProfileMongoStorage implements ProfileStorage {
             document.getList("elo", String.class).forEach(string -> {
                 String[] args = string.split(":");
                 profile.getEloMap().put(surfPractice.getKitHandler().getKit(args[0]), Integer.parseInt(args[1]));
+            });
+
+            document.getList("clans", String.class).forEach(string -> {
+                Clan clan = surfPractice.getClanHandler().getClan(UUID.fromString(string));
+
+                if (clan == null)
+                    return;
+
+                profile.getClanList().add(clan);
             });
 
             document.getList("loadout", String.class).forEach(string -> profile.getCustomLoadOutMap().add(CustomLoadOut.get(string)));

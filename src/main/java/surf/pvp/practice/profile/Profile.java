@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import surf.pvp.practice.Locale;
+import surf.pvp.practice.clan.Clan;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.party.Party;
@@ -24,7 +26,9 @@ public class Profile {
     private final UUID uuid;
 
     private final List<CustomLoadOut> customLoadOutMap = new ArrayList<>();
+
     private final Map<Kit, Integer> eloMap = new HashMap<>();
+    private final List<Clan> clanList = new ArrayList<>();
 
     private int win, loss, xp, coins;
 
@@ -65,6 +69,28 @@ public class Profile {
 
     public final Player getPlayer() {
         return Bukkit.getPlayer(uuid);
+    }
+
+    /**
+     * Gets the clan on the server the player is on
+     *
+     * @return {@link Clan}
+     */
+
+    public final Clan getClan() {
+        return this.getClan(Locale.SERVER_NAME.getString());
+    }
+
+    /**
+     * Gets the clan on the
+     * server specified
+     *
+     * @param server server to get the clan off
+     * @return {@link Clan}
+     */
+
+    public final Clan getClan(String server) {
+        return clanList.stream().filter(clan -> clan.getServerName().equalsIgnoreCase(server)).findFirst().orElse(null);
     }
 
     /**
@@ -118,6 +144,7 @@ public class Profile {
                 .append("loss", loss)
                 .append("xp", xp)
                 .append("coins", coins)
+                .append("clans", clanList.stream().map(clan -> clan.getUuid().toString()).collect(Collectors.toList()))
                 .append("elo", eloMap.entrySet().stream().map(kitIntegerEntry -> kitIntegerEntry.getKey().getName() + ":" + kitIntegerEntry.getValue()).collect(Collectors.toList()))
                 .append("loadout", customLoadOutMap.stream().map(CustomLoadOut::serialize).collect(Collectors.toList()));
     }

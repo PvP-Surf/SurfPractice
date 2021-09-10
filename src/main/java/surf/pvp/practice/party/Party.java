@@ -30,6 +30,9 @@ public class Party {
         this.uuid = UUID.randomUUID();
 
         this.leader = leader;
+        this.addMember(leader);
+
+        members.remove(leader);
     }
 
     /**

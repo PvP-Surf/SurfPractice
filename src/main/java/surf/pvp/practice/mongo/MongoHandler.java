@@ -14,7 +14,7 @@ public class MongoHandler {
 
     private MongoDatabase mongoDatabase;
     private MongoClient mongoClient;
-    private MongoCollection<Document> profiles, arenas, kits;
+    private MongoCollection<Document> profiles, arenas, kits, clans;
 
     /**
      * Mongo manager
