@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import surf.pvp.practice.Locale;
 import surf.pvp.practice.clan.Clan;
+import surf.pvp.practice.events.Event;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.party.Party;
@@ -39,6 +40,7 @@ public class Profile {
     private Match match;
     private Party party;
     private Tournament tournament;
+    private Event event;
     private Queue<?> currentQueue;
 
     private boolean build;

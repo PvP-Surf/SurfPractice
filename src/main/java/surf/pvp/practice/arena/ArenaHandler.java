@@ -73,6 +73,10 @@ public class ArenaHandler {
         return arenaMap.values().stream().filter(arena -> !arena.isBusy() && arena.getKits().contains(kit)).findFirst().orElse(null);
     }
 
+    public final Arena getAvailableEventArena(Kit kit) {
+        return arenaMap.values().stream().filter(arena -> !arena.isBusy() && arena.getKits().contains(kit) && arena.isEvent()).findFirst().orElse(null);
+    }
+
     /**
      * Handles the removal of an arena
      *

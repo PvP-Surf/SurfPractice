@@ -5,6 +5,7 @@ import com.mongodb.client.model.ReplaceOptions;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.kit.Kit;
@@ -24,7 +25,10 @@ public class Arena {
     private final List<Kit> kits;
 
     private boolean busy;
+    private boolean event;
+
     private Location positionOne, positionTwo, centerPosition;
+    private Location eventLocation = new Location(Bukkit.getWorld("world"), 0, 0, 0);
 
     /**
      * Constructs an arena
@@ -55,6 +59,9 @@ public class Arena {
         this.positionOne = LocationUtil.stringToLocation(document.getString("posOne"));
         this.positionTwo = LocationUtil.stringToLocation(document.getString("posTwo"));
         this.centerPosition = LocationUtil.stringToLocation(document.getString("center"));
+
+        this.eventLocation = LocationUtil.stringToLocation(document.getString("event"));
+        this.event = document.getBoolean("forEvents");
     }
 
     /**
@@ -113,7 +120,9 @@ public class Arena {
     public Document toBson() {
         return new Document("_id", name)
                 .append("ratings", ratings)
+                .append("forEvents", event)
                 .append("posOne", LocationUtil.locationToString(positionOne))
+                .append("event", LocationUtil.locationToString(eventLocation))
                 .append("posTwo", LocationUtil.locationToString(positionTwo))
                 .append("center", LocationUtil.locationToString(centerPosition))
                 .append("kits", kits.stream().map(Kit::getName).collect(Collectors.toList()));
