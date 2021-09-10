@@ -6,6 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import surf.pvp.practice.arena.ArenaHandler;
 import surf.pvp.practice.clan.ClanHandler;
 import surf.pvp.practice.kit.KitHandler;
+import surf.pvp.practice.leaderboard.LeaderboardHandler;
+import surf.pvp.practice.leaderboard.impl.LeaderboardElement;
 import surf.pvp.practice.listener.listeners.PlayerDeathListener;
 import surf.pvp.practice.mongo.MongoHandler;
 import surf.pvp.practice.profile.ProfileHandler;
@@ -39,6 +41,7 @@ public class SurfPractice extends JavaPlugin {
         this.profileHandler = new ProfileHandler(this);
 
         this.registerListeners();
+        new LeaderboardHandler(this, new LeaderboardElement(), 300 * 20L);
     }
 
     public final void registerListeners() {
