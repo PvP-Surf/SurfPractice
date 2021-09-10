@@ -23,9 +23,9 @@ public class TournamentMatch extends Match {
     /**
      * Constructs {@link Match}
      *
-     * @param arena     arena
-     * @param kit       kit
-     * @param players   players
+     * @param arena   arena
+     * @param kit     kit
+     * @param players players
      */
     public TournamentMatch(Arena arena, Kit kit, Tournament tournament, Player... players) {
         super(MatchType.TOURNAMENT, arena, kit, players);

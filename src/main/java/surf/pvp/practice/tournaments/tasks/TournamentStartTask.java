@@ -1,9 +1,7 @@
 package surf.pvp.practice.tournaments.tasks;
 
 import lombok.AllArgsConstructor;
-import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
-import surf.pvp.practice.listener.events.impl.tournament.round.TournamentStartRoundEvent;
 import surf.pvp.practice.tournaments.Tournament;
 import surf.pvp.practice.tournaments.TournamentHandler;
 import surf.pvp.practice.tournaments.TournamentState;

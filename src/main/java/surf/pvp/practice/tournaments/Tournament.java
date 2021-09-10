@@ -88,8 +88,8 @@ public class Tournament {
 
         if (playerList.size() > 2) {
             final List<Player> playersInMatch = playerList.stream().filter(player ->
-                            SurfPractice.getInstance().getProfileHandler().getProfile(player.getUniqueId())
-                                    .getMatch() == null).collect(Collectors.toList());
+                    SurfPractice.getInstance().getProfileHandler().getProfile(player.getUniqueId())
+                            .getMatch() == null).collect(Collectors.toList());
 
             if (playersInMatch.isEmpty()) {
                 Bukkit.getPluginManager().callEvent(new TournamentEndRoundEvent(this));
