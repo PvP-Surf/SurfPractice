@@ -12,6 +12,7 @@ import surf.pvp.practice.listener.events.impl.tournament.global.TournamentStartE
 import surf.pvp.practice.listener.events.impl.tournament.player.PlayerJoinTournamentEvent;
 import surf.pvp.practice.listener.events.impl.tournament.player.PlayerLeaveTournamentEvent;
 import surf.pvp.practice.listener.events.impl.tournament.round.TournamentEndRoundEvent;
+import surf.pvp.practice.listener.events.impl.tournament.round.TournamentStartRoundEvent;
 import surf.pvp.practice.match.impl.TournamentMatch;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileState;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 public class Tournament {
 
     private final Kit kit;
+    private final int playersToPlayer;
 
     private final List<Player> playerList = new ArrayList<>();
     private List<Player> originalList = new ArrayList<>();
@@ -39,8 +41,9 @@ public class Tournament {
      * @param kit kit of tournament
      */
 
-    public Tournament(Kit kit) {
+    public Tournament(Kit kit, int playersToPlayer) {
         this.kit = kit;
+        this.playersToPlayer = playersToPlayer;
     }
 
     /**
@@ -118,16 +121,18 @@ public class Tournament {
      * Starts matches between players
      */
 
-    public final void startMatch() {
+    public final void startMatch(boolean first) {
         if (playerList.isEmpty()) {
             return;
         }
 
-        if (originalList.isEmpty()) {
+        if (first) {
             originalList = playerList;
 
             tournamentState = TournamentState.STARTED;
             Bukkit.getPluginManager().callEvent(new TournamentStartEvent(this));
+        } else {
+            Bukkit.getPluginManager().callEvent(new TournamentStartRoundEvent(this));
         }
 
         final List<Player> playersToMove = playerList;

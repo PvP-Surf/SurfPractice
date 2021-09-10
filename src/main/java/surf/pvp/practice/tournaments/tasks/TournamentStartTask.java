@@ -29,14 +29,20 @@ public class TournamentStartTask extends BukkitRunnable {
     public void run() {
         for (Tournament tournament : tournamentHandler.getTournaments()) {
 
+            if (tournament.getTournamentState().equals(TournamentState.WAITING)) {
+                if (tournament.getPlayerList().size() < tournament.getPlayersToPlayer())
+                    return;
+
+                tournament.startMatch(true);
+                return;
+            }
+
             if (!tournament.getTournamentState().equals(TournamentState.STARTING_ROUND))
                 return;
 
             if (tournament.getCountdown() <= 0) {
                 tournament.setTournamentState(TournamentState.IN_ROUND);
-                tournament.startMatch();
-
-                Bukkit.getPluginManager().callEvent(new TournamentStartRoundEvent(tournament));
+                tournament.startMatch(false);
             } else {
                 tournament.setCountdown(tournament.getCountdown() - 1);
             }
