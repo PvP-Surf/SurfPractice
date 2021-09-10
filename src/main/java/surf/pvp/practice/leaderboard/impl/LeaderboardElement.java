@@ -5,14 +5,14 @@ import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.leaderboard.LeaderboardAdapter;
 import surf.pvp.practice.leaderboard.LeaderboardType;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class LeaderboardElement implements LeaderboardAdapter {
 
-    private final Map<LeaderboardType, List<Integer>> leaderboard = new HashMap<>();
+    private final Map<LeaderboardType, TreeMap<Integer, String>> leaderboard = new HashMap<>();
 
     /**
      * Updates that certain leaderboard type
@@ -22,14 +22,16 @@ public class LeaderboardElement implements LeaderboardAdapter {
 
     @Override
     public void update(SurfPractice surfPractice) {
-        final List<Integer> killProfile = new ArrayList<>(), wins = new ArrayList<>();
+        final TreeMap<Integer, String> killProfile = new TreeMap<>(Comparator.comparingInt(o -> o)), wins = new TreeMap<>(Comparator.comparingInt(o -> o));
 
         for (Document document : surfPractice.getMongoHandler().getProfiles().find()) {
+            String name = document.getString("name");
+
             int kills = document.getInteger("kills");
             int win = document.getInteger("win");
 
-            wins.add(win);
-            killProfile.add(kills);
+            wins.put(kills, name);
+            killProfile.put(win, name);
         }
 
         leaderboard.put(LeaderboardType.KILLS, killProfile);
@@ -43,7 +45,7 @@ public class LeaderboardElement implements LeaderboardAdapter {
      */
 
     @Override
-    public Map<LeaderboardType, List<Integer>> getLeaderboard() {
+    public Map<LeaderboardType, TreeMap<Integer, String>> getLeaderboard() {
         return leaderboard;
     }
 

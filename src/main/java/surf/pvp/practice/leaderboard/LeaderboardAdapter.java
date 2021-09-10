@@ -4,6 +4,7 @@ import surf.pvp.practice.SurfPractice;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public interface LeaderboardAdapter {
 
@@ -21,7 +22,7 @@ public interface LeaderboardAdapter {
      * @return {@link Map}
      */
 
-    Map<LeaderboardType, List<Integer>> getLeaderboard();
+    Map<LeaderboardType, TreeMap<Integer, String>> getLeaderboard();
 
     /**
      * Gets the list of integers
@@ -31,7 +32,7 @@ public interface LeaderboardAdapter {
      * @return {@link List<Integer>}
      */
 
-    default List<Integer> getList(LeaderboardType leaderboardType) {
+    default TreeMap<Integer, String> getTreeMap(LeaderboardType leaderboardType) {
         return getLeaderboard().get(leaderboardType);
     }
 
