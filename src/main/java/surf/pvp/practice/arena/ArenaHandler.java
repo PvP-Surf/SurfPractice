@@ -3,6 +3,7 @@ package surf.pvp.practice.arena;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import surf.pvp.practice.SurfPractice;
+import surf.pvp.practice.kit.Kit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,9 @@ public class ArenaHandler {
 
     public ArenaHandler(SurfPractice surfPractice) {
         this.surfPractice = surfPractice;
+
         this.load();
+        surfPractice.getServer().getPluginManager().registerEvents(new ArenaListener(surfPractice), surfPractice);
     }
 
     /**
@@ -28,7 +31,11 @@ public class ArenaHandler {
      */
 
     private final void load() {
-
+        surfPractice.getServer().getScheduler().runTaskAsynchronously(surfPractice, () -> {
+            for (Document document : surfPractice.getMongoHandler().getArenas().find()) {
+                arenaMap.put(document.getString("_id"), new Arena(document, surfPractice));
+            }
+        });
     }
 
     /**
@@ -51,6 +58,18 @@ public class ArenaHandler {
 
     public final Arena getArena(String name) {
         return arenaMap.get(name.toUpperCase());
+    }
+
+    /**
+     * Gets an available arena
+     * For a kit
+     *
+     * @param kit kit to get the arena off
+     * @return {@link Arena}
+     */
+
+    public final Arena getAvailableArena(Kit kit) {
+        return arenaMap.values().stream().filter(arena -> !arena.isBusy() && arena.getKits().contains(kit)).findFirst().orElse(null);
     }
 
     /**

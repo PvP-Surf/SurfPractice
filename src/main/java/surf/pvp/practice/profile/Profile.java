@@ -3,13 +3,16 @@ package surf.pvp.practice.profile;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.match.Match;
+import surf.pvp.practice.party.Party;
 import surf.pvp.practice.profile.hotbar.HotbarItem;
 import surf.pvp.practice.profile.loadout.CustomLoadOut;
+import surf.pvp.practice.queue.Queue;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,7 +29,12 @@ public class Profile {
     private int win, loss, xp, coins;
 
     private ProfileState profileState = ProfileState.LOBBY;
+
     private Match match;
+    private Party party;
+    private Queue<?> currentQueue;
+
+    private boolean build;
 
     /**
      * Contructs a profile
@@ -47,6 +55,16 @@ public class Profile {
 
     public final int getElo(Kit kit) {
         return eloMap.get(kit);
+    }
+
+    /**
+     * Gets the player of the profile
+     *
+     * @return {@link Player}
+     */
+
+    public final Player getPlayer() {
+        return Bukkit.getPlayer(uuid);
     }
 
     /**

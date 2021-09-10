@@ -21,6 +21,7 @@ public class KitHandler {
 
     public KitHandler(SurfPractice surfPractice) {
         this.surfPractice = surfPractice;
+
         this.load();
     }
 
@@ -29,7 +30,11 @@ public class KitHandler {
      */
 
     private final void load() {
-
+        surfPractice.getServer().getScheduler().runTaskAsynchronously(surfPractice, () -> {
+            for (Document document : surfPractice.getMongoHandler().getKits().find()) {
+                kitMap.put(document.getString("_id"), new Kit(document));
+            }
+        });
     }
 
     /**

@@ -32,6 +32,7 @@ public class SoloMatch extends Match {
         for (Player player : players) {
             Profile profile = SurfPractice.getInstance().getProfileHandler().getProfile(player.getUniqueId());
 
+            profile.setCurrentQueue(null);
             profile.setMatch(this);
             profile.setProfileState(ProfileState.IN_MATCH);
 

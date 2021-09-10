@@ -14,6 +14,12 @@ public class ProfileMongoStorage implements ProfileStorage {
 
     private final SurfPractice surfPractice;
 
+    /**
+     * Loads the profile
+     *
+     * @param profile profile to load
+     */
+
     @Override
     public void load(Profile profile) {
         surfPractice.getServer().getScheduler().runTaskAsynchronously(surfPractice, () -> {
@@ -37,6 +43,13 @@ public class ProfileMongoStorage implements ProfileStorage {
             document.getList("loadout", String.class).forEach(string -> profile.getCustomLoadOutMap().add(CustomLoadOut.get(string)));
         });
     }
+
+    /**
+     * Saves the profile
+     *
+     * @param profile profile to save
+     * @param async if should be done async or not
+     */
 
     public void save(Profile profile, boolean async) {
 
