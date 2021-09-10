@@ -31,7 +31,7 @@ public class Profile {
     private final Map<Kit, Integer> eloMap = new HashMap<>();
     private final List<Clan> clanList = new ArrayList<>();
 
-    private int win, loss, xp, coins;
+    private int win, loss, kills, deaths, xp, coins;
     private ProfileSettings settings;
 
     private ProfileState profileState = ProfileState.LOBBY;
@@ -144,8 +144,11 @@ public class Profile {
         return new Document("_id", uuid.toString())
                 .append("win", win)
                 .append("loss", loss)
+                .append("kills", kills)
+                .append("deaths", deaths)
                 .append("xp", xp)
                 .append("coins", coins)
+                .append("name", getPlayer().getName())
                 .append("settings", settings.toBson())
                 .append("clans", clanList.stream().map(clan -> clan.getUuid().toString()).collect(Collectors.toList()))
                 .append("elo", eloMap.entrySet().stream().map(kitIntegerEntry -> kitIntegerEntry.getKey().getName() + ":" + kitIntegerEntry.getValue()).collect(Collectors.toList()))
