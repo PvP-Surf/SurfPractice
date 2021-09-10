@@ -5,7 +5,10 @@ import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.leaderboard.LeaderboardAdapter;
 import surf.pvp.practice.leaderboard.LeaderboardType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LeaderboardElement implements LeaderboardAdapter {
 

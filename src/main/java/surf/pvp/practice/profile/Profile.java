@@ -14,9 +14,9 @@ import surf.pvp.practice.match.Match;
 import surf.pvp.practice.party.Party;
 import surf.pvp.practice.profile.hotbar.HotbarItem;
 import surf.pvp.practice.profile.loadout.CustomLoadOut;
-import surf.pvp.practice.profile.settings.Settings;
 import surf.pvp.practice.profile.settings.impl.ProfileSettings;
 import surf.pvp.practice.queue.Queue;
+import surf.pvp.practice.tournaments.Tournament;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,6 +38,7 @@ public class Profile {
 
     private Match match;
     private Party party;
+    private Tournament tournament;
     private Queue<?> currentQueue;
 
     private boolean build;

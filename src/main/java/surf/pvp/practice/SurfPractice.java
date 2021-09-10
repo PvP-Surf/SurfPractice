@@ -11,6 +11,7 @@ import surf.pvp.practice.leaderboard.impl.LeaderboardElement;
 import surf.pvp.practice.listener.listeners.PlayerDeathListener;
 import surf.pvp.practice.mongo.MongoHandler;
 import surf.pvp.practice.profile.ProfileHandler;
+import surf.pvp.practice.tournaments.TournamentHandler;
 
 @Getter
 public class SurfPractice extends JavaPlugin {
@@ -23,12 +24,21 @@ public class SurfPractice extends JavaPlugin {
     private ProfileHandler profileHandler;
     private ArenaHandler arenaHandler;
     private KitHandler kitHandler;
+    private TournamentHandler tournamentHandler;
+
+    /**
+     * Loading logic of the plugin
+     */
 
     @Override
     public void onLoad() {
         instance = this;
         this.saveDefaultConfig();
     }
+
+    /**
+     * Enabling logic of the plugin
+     */
 
     @Override
     public void onEnable() {
@@ -39,12 +49,27 @@ public class SurfPractice extends JavaPlugin {
         this.clanHandler = new ClanHandler(this);
 
         this.profileHandler = new ProfileHandler(this);
+        this.tournamentHandler = new TournamentHandler(this);
 
-        this.registerListeners();
+        this.registerPlugin();
         new LeaderboardHandler(this, new LeaderboardElement(), 300 * 20L);
     }
 
-    public final void registerListeners() {
+    /**
+     * Disabling logic of the plugin
+     */
+
+    @Override
+    public void onDisable() {
+        arenaHandler.getArenas().forEach(arena -> arena.save(this, false));
+        kitHandler.getKits().forEach(kit -> kit.save(this, false));
+    }
+
+    /**
+     * Registration logic of the plugin
+     */
+
+    public final void registerPlugin() {
         PluginManager pluginManager = this.getServer().getPluginManager();
 
         pluginManager.registerEvents(new PlayerDeathListener(), this);

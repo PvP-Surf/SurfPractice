@@ -32,9 +32,9 @@ public class ClanHandler {
 
     private final void load() {
         surfPractice.getServer().getScheduler().runTaskAsynchronously(surfPractice, () -> {
-           for (Document document : surfPractice.getMongoHandler().getClans().find()) {
-               clanMap.put(UUID.fromString(document.getString("_id")), new Clan(document));
-           }
+            for (Document document : surfPractice.getMongoHandler().getClans().find()) {
+                clanMap.put(UUID.fromString(document.getString("_id")), new Clan(document));
+            }
         });
     }
 

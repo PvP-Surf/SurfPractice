@@ -1,5 +1,7 @@
 package surf.pvp.practice.arena;
 
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.ReplaceOptions;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.Document;
@@ -40,7 +42,7 @@ public class Arena {
     /**
      * Loads an arena from a mongo document
      *
-     * @param document document to load the arena from
+     * @param document     document to load the arena from
      * @param surfPractice instance of {@link SurfPractice}
      */
 
@@ -73,8 +75,32 @@ public class Arena {
      * @return {@link Boolean}
      */
 
-    public boolean isSetup() {
+    public final boolean isSetup() {
         return positionOne != null && positionTwo != null && centerPosition != null;
+    }
+
+    /**
+     * Saves an arena to mongo
+     *
+     * @param surfPractice instance of {@link SurfPractice}
+     * @param async        if task should be ran async or not
+     */
+
+    public final void save(SurfPractice surfPractice, boolean async) {
+
+        if (async) {
+            surfPractice.getServer().getScheduler().runTaskAsynchronously(surfPractice, () -> save(surfPractice, false));
+            return;
+        }
+
+        final Document document = surfPractice.getMongoHandler().getArenas().find(Filters.eq("_id", name)).first();
+
+        if (document == null) {
+            surfPractice.getMongoHandler().getArenas().insertOne(toBson());
+            return;
+        }
+
+        surfPractice.getMongoHandler().getArenas().replaceOne(document, toBson(), new ReplaceOptions().upsert(true));
     }
 
     /**

@@ -9,9 +9,6 @@ import java.util.TimeZone;
 
 public final class DateTimeFormats {
 
-    private DateTimeFormats() {
-    }
-
     public static final TimeZone SERVER_TIME_ZONE = TimeZone.getTimeZone("EST");
     public static final ZoneId SERVER_ZONE_ID = SERVER_TIME_ZONE.toZoneId();
     public static final FastDateFormat DAY_MTH_HR_MIN_SECS = FastDateFormat.getInstance("dd/MM HH:mm:ss", SERVER_TIME_ZONE, Locale.ENGLISH);
@@ -21,9 +18,7 @@ public final class DateTimeFormats {
     public static final FastDateFormat HR_MIN_AMPM_TIMEZONE = FastDateFormat.getInstance("hh:mma z", SERVER_TIME_ZONE, Locale.ENGLISH);
     public static final FastDateFormat HR_MIN = FastDateFormat.getInstance("hh:mm", SERVER_TIME_ZONE, Locale.ENGLISH);
     public static final FastDateFormat MIN_SECS = FastDateFormat.getInstance("mm:ss", SERVER_TIME_ZONE, Locale.ENGLISH);
-
     public static final FastDateFormat KOTH_FORMAT = FastDateFormat.getInstance("m:ss", SERVER_TIME_ZONE, Locale.ENGLISH);
-
     // The format used to show one decimal without a trailing zero.
     public static final ThreadLocal<DecimalFormat> REMAINING_SECONDS = new ThreadLocal<DecimalFormat>() {
         @Override
@@ -31,11 +26,13 @@ public final class DateTimeFormats {
             return new DecimalFormat("0.#");
         }
     };
-
     public static final ThreadLocal<DecimalFormat> REMAINING_SECONDS_TRAILING = new ThreadLocal<DecimalFormat>() {
         @Override
         protected DecimalFormat initialValue() {
             return new DecimalFormat("0.0");
         }
     };
+
+    private DateTimeFormats() {
+    }
 }

@@ -14,7 +14,7 @@ public interface ProfileStorage {
      * Saves the profile
      *
      * @param profile profile to save
-     * @param async if should be done async or not
+     * @param async   if should be done async or not
      */
 
     void save(Profile profile, boolean async);

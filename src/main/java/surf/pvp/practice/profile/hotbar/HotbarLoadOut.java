@@ -7,6 +7,22 @@ public class HotbarLoadOut {
     private static HotbarLoadOut instance;
 
     /**
+     * Initilizes/Create the instance if
+     * null
+     *
+     * @return instance
+     */
+
+    public static HotbarLoadOut getInstance() {
+        if (instance == null) {
+            instance = new HotbarLoadOut();
+            return instance;
+        }
+
+        return instance;
+    }
+
+    /**
      * Gives all the hotbar items to a player
      *
      * @param player player to give all the hotbar items to
@@ -34,22 +50,6 @@ public class HotbarLoadOut {
 
     public final void givePartyItems(Player player) {
 
-    }
-
-    /**
-     * Initilizes/Create the instance if
-     * null
-     *
-     * @return instance
-     */
-
-    public static HotbarLoadOut getInstance() {
-        if (instance == null) {
-            instance = new HotbarLoadOut();
-            return instance;
-        }
-
-        return instance;
     }
 
 }

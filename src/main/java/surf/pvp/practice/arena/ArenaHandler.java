@@ -5,6 +5,7 @@ import org.bson.Document;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.kit.Kit;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -93,6 +94,16 @@ public class ArenaHandler {
             return;
 
         surfPractice.getMongoHandler().getArenas().deleteOne(document);
+    }
+
+    /**
+     * Gets all arenas registered
+     *
+     * @return {@link Arena}
+     */
+
+    public final Collection<Arena> getArenas() {
+        return arenaMap.values();
     }
 
 }

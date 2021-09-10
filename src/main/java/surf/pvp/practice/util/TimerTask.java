@@ -5,9 +5,8 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class TimerTask {
 
-    private int time;
     private final JavaPlugin plugin;
-
+    private int time;
     private BukkitTask task;
     private BukkitTask cancelTask;
 
@@ -16,12 +15,12 @@ public class TimerTask {
         this.plugin = plugin;
     }
 
-    public void setTime(int time) {
-        this.time = time;
-    }
-
     public int getTime() {
         return this.time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 
     public boolean stillRunning() {

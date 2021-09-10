@@ -10,7 +10,7 @@ public class ClanKitQueue extends Queue<Clan> {
     /**
      * Queue Abstract Class
      *
-     * @param kit       kit to create the queue for
+     * @param kit kit to create the queue for
      */
     public ClanKitQueue(Kit kit) {
         super(QueueType.CLAN, kit);

@@ -26,19 +26,19 @@ public class ItemBuilder implements Listener {
     }
 
     public ItemBuilder(final Material material, final int amount) {
-        this(material, amount, (byte)0);
+        this(material, amount, (byte) 0);
     }
 
     public ItemBuilder(final Material material, final int amount, final byte data) {
-        Preconditions.checkNotNull((Object)material, "Material cannot be null");
+        Preconditions.checkNotNull((Object) material, "Material cannot be null");
         Preconditions.checkArgument(amount > 0, "Amount must be positive");
         this.is = new ItemStack(material, amount, data);
     }
 
     public ItemBuilder(final Material material, final int amount, final int data) {
-        Preconditions.checkNotNull((Object)material, "Material cannot be null");
+        Preconditions.checkNotNull((Object) material, "Material cannot be null");
         Preconditions.checkArgument(amount > 0, "Amount must be positive");
-        this.is = new ItemStack(material, amount, (short)data);
+        this.is = new ItemStack(material, amount, (short) data);
     }
 
     public ItemBuilder amount(final int amount) {
@@ -87,7 +87,7 @@ public class ItemBuilder implements Listener {
     }
 
     public ItemBuilder durability(final int durability) {
-        this.is.setDurability((short)durability);
+        this.is.setDurability((short) durability);
         return this;
     }
 
@@ -127,7 +127,7 @@ public class ItemBuilder implements Listener {
 
     public ItemBuilder color(final Color color) {
         if (this.is.getType() == Material.LEATHER_BOOTS || this.is.getType() == Material.LEATHER_CHESTPLATE || this.is.getType() == Material.LEATHER_HELMET || this.is.getType() == Material.LEATHER_LEGGINGS) {
-            final LeatherArmorMeta meta = (LeatherArmorMeta)this.is.getItemMeta();
+            final LeatherArmorMeta meta = (LeatherArmorMeta) this.is.getItemMeta();
             meta.setColor(color);
             this.is.setItemMeta(meta);
             return this;

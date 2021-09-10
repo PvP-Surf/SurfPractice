@@ -17,7 +17,7 @@ public interface Settings {
     /**
      * Sets the settings type to a boolean value
      *
-     * @param type type
+     * @param type  type
      * @param value value
      */
 

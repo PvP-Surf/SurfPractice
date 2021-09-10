@@ -46,7 +46,7 @@ public class ProfileHandler {
      * Handles the removal of a profile
      *
      * @param profile profile to handle removal off
-     * @param async if should be ran async or not
+     * @param async   if should be ran async or not
      */
 
     public final void handleRemoval(Profile profile, boolean async) {

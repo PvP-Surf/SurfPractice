@@ -29,8 +29,8 @@ public class TeamMatch extends Match {
     /**
      * Team Match
      *
-     * @param arena arena
-     * @param kit kit
+     * @param arena   arena
+     * @param kit     kit
      * @param players players
      */
 
@@ -68,7 +68,7 @@ public class TeamMatch extends Match {
     /**
      * ending logic
      *
-     * @param uuid uuid of the winner
+     * @param uuid   uuid of the winner
      * @param forced if forced
      */
 

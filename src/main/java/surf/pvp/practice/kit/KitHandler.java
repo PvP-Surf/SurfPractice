@@ -41,7 +41,7 @@ public class KitHandler {
      * Creates a kit
      *
      * @param name name of kit
-     * @param elo if kit is elo or not
+     * @param elo  if kit is elo or not
      */
 
     public final void createKit(String name, boolean elo) {
@@ -51,7 +51,7 @@ public class KitHandler {
     /**
      * Handles the removal of a kit
      *
-     * @param kit kit to remove
+     * @param kit   kit to remove
      * @param async if task should be ran async or not
      */
 

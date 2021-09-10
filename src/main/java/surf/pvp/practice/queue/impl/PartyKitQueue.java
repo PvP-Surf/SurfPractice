@@ -10,7 +10,7 @@ public class PartyKitQueue extends Queue<Party> {
     /**
      * Queue Abstract Class
      *
-     * @param kit       kit to create the queue for
+     * @param kit kit to create the queue for
      */
     public PartyKitQueue(Kit kit) {
         super(QueueType.PARTY, kit);

@@ -5,8 +5,9 @@ import lombok.Getter;
 @Getter
 public enum MatchType {
 
-    ONE(),
-    TEAM(),
-    FFA();
+    ONE,
+    TEAM,
+    TOURNAMENT,
+    FFA;
 
 }

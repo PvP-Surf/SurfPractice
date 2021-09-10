@@ -1,5 +1,7 @@
 package surf.pvp.practice.kit;
 
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.ReplaceOptions;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -86,6 +88,31 @@ public class Kit {
     public void apply(Player player) {
         player.getInventory().setArmorContents(armorContents);
         player.getInventory().setContents(inventoryContents);
+    }
+
+    /**
+     * Saves the kit to the mongo
+     * database
+     *
+     * @param surfPractice instance of {@link SurfPractice}
+     * @param async        if task should be ran async or not
+     */
+
+    public final void save(SurfPractice surfPractice, boolean async) {
+
+        if (async) {
+            surfPractice.getServer().getScheduler().runTaskAsynchronously(surfPractice, () -> save(surfPractice, false));
+            return;
+        }
+
+        final Document document = surfPractice.getMongoHandler().getKits().find(Filters.eq("_id", name)).first();
+
+        if (document == null) {
+            surfPractice.getMongoHandler().getKits().insertOne(toBson());
+            return;
+        }
+
+        surfPractice.getMongoHandler().getKits().replaceOne(document, toBson(), new ReplaceOptions().upsert(true));
     }
 
     /**
