@@ -1,17 +1,20 @@
 package surf.pvp.practice.match.listener;
 
 import lombok.AllArgsConstructor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import surf.pvp.practice.SurfPractice;
-import surf.pvp.practice.events.impl.match.global.MatchEndCountdownEvent;
-import surf.pvp.practice.events.impl.match.solo.MatchStartEvent;
+import surf.pvp.practice.listener.events.impl.global.PracticeDeathEvent;
+import surf.pvp.practice.listener.events.impl.match.global.MatchEndCountdownEvent;
+import surf.pvp.practice.listener.events.impl.match.solo.MatchStartEvent;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.util.PlayerUtil;
+
+import java.util.Optional;
 
 @AllArgsConstructor
 public class MatchListener implements Listener {
@@ -56,11 +59,10 @@ public class MatchListener implements Listener {
     }
 
     @EventHandler
-    public final void onPlayerDeathEvent(PlayerDeathEvent event) {
-        Player player = event.getEntity().getPlayer();
+    public final void onPracticeDeathEvent(PracticeDeathEvent event) {
+        Player player = event.getPlayer();
+        Optional<Player> killer = event.getKiller();
         Profile profile = surfPractice.getProfileHandler().getProfile(player.getUniqueId());
-
-        player.spigot().respawn();
 
         Match match = profile.getMatch();
 
@@ -68,7 +70,16 @@ public class MatchListener implements Listener {
             return;
         }
 
-        match.end(event.getEntity().getKiller().getUniqueId(), false);
+        player.getInventory().setArmorContents(null);
+        player.getInventory().clear();
+
+        player.setGameMode(GameMode.CREATIVE);
+
+        if (killer.isPresent()) {
+            match.end(killer.get().getUniqueId(), false);
+        } else {
+            match.end(player.getUniqueId(), true);
+        }
     }
 
 }

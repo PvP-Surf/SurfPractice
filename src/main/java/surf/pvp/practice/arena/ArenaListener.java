@@ -7,9 +7,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import surf.pvp.practice.SurfPractice;
-import surf.pvp.practice.events.impl.arena.ArenaBlockBreakEvent;
-import surf.pvp.practice.events.impl.arena.ArenaBlockPlaceEvent;
 import surf.pvp.practice.kit.Kit;
+import surf.pvp.practice.listener.events.impl.arena.ArenaBlockBreakEvent;
+import surf.pvp.practice.listener.events.impl.arena.ArenaBlockPlaceEvent;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.profile.Profile;
 

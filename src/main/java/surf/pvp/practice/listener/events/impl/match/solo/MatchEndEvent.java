@@ -1,8 +1,8 @@
-package surf.pvp.practice.events.impl.match.solo;
+package surf.pvp.practice.listener.events.impl.match.solo;
 
 import lombok.Getter;
 import org.bukkit.entity.Player;
-import surf.pvp.practice.events.CustomEvent;
+import surf.pvp.practice.listener.events.CustomEvent;
 import surf.pvp.practice.match.Match;
 
 @Getter

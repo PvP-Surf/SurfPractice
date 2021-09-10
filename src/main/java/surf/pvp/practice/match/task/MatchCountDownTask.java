@@ -2,7 +2,7 @@ package surf.pvp.practice.match.task;
 
 import lombok.AllArgsConstructor;
 import org.bukkit.scheduler.BukkitRunnable;
-import surf.pvp.practice.events.impl.match.global.MatchEndCountdownEvent;
+import surf.pvp.practice.listener.events.impl.match.global.MatchEndCountdownEvent;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.match.MatchStatus;
 import surf.pvp.practice.profile.Profile;

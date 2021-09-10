@@ -1,14 +1,14 @@
 package surf.pvp.practice;
 
 import lombok.Getter;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import surf.pvp.practice.arena.ArenaHandler;
 import surf.pvp.practice.clan.ClanHandler;
 import surf.pvp.practice.kit.KitHandler;
+import surf.pvp.practice.listener.listeners.PlayerDeathListener;
 import surf.pvp.practice.mongo.MongoHandler;
 import surf.pvp.practice.profile.ProfileHandler;
-import surf.pvp.practice.profile.ProfileStorage;
-import surf.pvp.practice.profile.impl.ProfileMongoStorage;
 
 @Getter
 public class SurfPractice extends JavaPlugin {
@@ -37,6 +37,14 @@ public class SurfPractice extends JavaPlugin {
         this.clanHandler = new ClanHandler(this);
 
         this.profileHandler = new ProfileHandler(this);
+
+        this.registerListeners();
+    }
+
+    public final void registerListeners() {
+        PluginManager pluginManager = this.getServer().getPluginManager();
+
+        pluginManager.registerEvents(new PlayerDeathListener(), this);
     }
 
 }

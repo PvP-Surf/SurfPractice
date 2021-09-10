@@ -1,7 +1,7 @@
-package surf.pvp.practice.events.impl.match.team;
+package surf.pvp.practice.listener.events.impl.match.team;
 
 import lombok.Getter;
-import surf.pvp.practice.events.CustomEvent;
+import surf.pvp.practice.listener.events.CustomEvent;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.match.objects.MatchTeam;
 

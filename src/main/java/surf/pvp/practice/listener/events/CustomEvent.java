@@ -1,4 +1,4 @@
-package surf.pvp.practice.events;
+package surf.pvp.practice.listener.events;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

@@ -1,7 +1,7 @@
-package surf.pvp.practice.events.impl.match.global;
+package surf.pvp.practice.listener.events.impl.match.global;
 
 import lombok.Getter;
-import surf.pvp.practice.events.CustomEvent;
+import surf.pvp.practice.listener.events.CustomEvent;
 import surf.pvp.practice.match.Match;
 
 @Getter

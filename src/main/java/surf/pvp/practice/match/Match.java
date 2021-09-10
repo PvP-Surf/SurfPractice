@@ -5,8 +5,8 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import surf.pvp.practice.arena.Arena;
-import surf.pvp.practice.events.CustomEvent;
 import surf.pvp.practice.kit.Kit;
+import surf.pvp.practice.listener.events.CustomEvent;
 
 import java.util.UUID;
 

@@ -1,16 +1,16 @@
-package surf.pvp.practice.events.impl.arena;
+package surf.pvp.practice.listener.events.impl.arena;
 
 import lombok.Data;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import surf.pvp.practice.arena.Arena;
-import surf.pvp.practice.events.CustomEvent;
 import surf.pvp.practice.kit.Kit;
+import surf.pvp.practice.listener.events.CustomEvent;
 import surf.pvp.practice.match.Match;
 
 @Data
-public class ArenaBlockPlaceEvent extends CustomEvent implements Cancellable {
+public class ArenaBlockBreakEvent extends CustomEvent implements Cancellable {
 
     private final Player player;
     private final Arena arena;
