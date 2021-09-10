@@ -24,14 +24,12 @@ public class PlayerDeathListener implements Listener {
         if (event.getFinalDamage() < target.getHealth())
             return;
 
+        event.setCancelled(true);
+
         final PracticeDeathEvent practiceDeathEvent = new PracticeDeathEvent(player, target, event.getFinalDamage());
         Bukkit.getPluginManager().callEvent(practiceDeathEvent);
 
         event.setDamage(practiceDeathEvent.getDamage());
-
-        if (practiceDeathEvent.isCancelled()) {
-            event.setCancelled(true);
-        }
     }
 
     @EventHandler
@@ -47,14 +45,12 @@ public class PlayerDeathListener implements Listener {
         if (event.getFinalDamage() < target.getHealth())
             return;
 
+        event.setCancelled(true);
+
         final PracticeDeathEvent practiceDeathEvent = new PracticeDeathEvent(null, target, event.getFinalDamage());
         Bukkit.getPluginManager().callEvent(practiceDeathEvent);
 
         event.setDamage(practiceDeathEvent.getDamage());
-
-        if (practiceDeathEvent.isCancelled()) {
-            event.setCancelled(true);
-        }
     }
 
 }

@@ -48,4 +48,12 @@ public enum HotbarItem {
         this.playerInteractEventConsumer = playerInteractEventConsumer;
     }
 
+    public final void giveItem(Player player) {
+        player.getInventory().addItem(itemStack);
+    }
+
+    public final void setItem(Player player, int index) {
+        player.getInventory().setItem(index, itemStack);
+    }
+
 }

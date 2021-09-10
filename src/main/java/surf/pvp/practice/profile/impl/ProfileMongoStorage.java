@@ -9,6 +9,7 @@ import surf.pvp.practice.clan.Clan;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileStorage;
 import surf.pvp.practice.profile.loadout.CustomLoadOut;
+import surf.pvp.practice.profile.settings.impl.ProfileSettings;
 
 import java.util.UUID;
 
@@ -37,6 +38,11 @@ public class ProfileMongoStorage implements ProfileStorage {
             profile.setLoss(document.getInteger("loss"));
             profile.setWin(document.getInteger("win"));
             profile.setXp(document.getInteger("xp"));
+
+            ProfileSettings profileSettings = new ProfileSettings();
+            profileSettings.load(document);
+
+            profile.setSettings(profileSettings);
 
             document.getList("elo", String.class).forEach(string -> {
                 String[] args = string.split(":");

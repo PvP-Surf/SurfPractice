@@ -14,6 +14,8 @@ import surf.pvp.practice.match.Match;
 import surf.pvp.practice.party.Party;
 import surf.pvp.practice.profile.hotbar.HotbarItem;
 import surf.pvp.practice.profile.loadout.CustomLoadOut;
+import surf.pvp.practice.profile.settings.Settings;
+import surf.pvp.practice.profile.settings.impl.ProfileSettings;
 import surf.pvp.practice.queue.Queue;
 
 import java.util.*;
@@ -26,11 +28,11 @@ public class Profile {
     private final UUID uuid;
 
     private final List<CustomLoadOut> customLoadOutMap = new ArrayList<>();
-
     private final Map<Kit, Integer> eloMap = new HashMap<>();
     private final List<Clan> clanList = new ArrayList<>();
 
     private int win, loss, xp, coins;
+    private ProfileSettings settings;
 
     private ProfileState profileState = ProfileState.LOBBY;
 
@@ -144,6 +146,7 @@ public class Profile {
                 .append("loss", loss)
                 .append("xp", xp)
                 .append("coins", coins)
+                .append("settings", settings.toBson())
                 .append("clans", clanList.stream().map(clan -> clan.getUuid().toString()).collect(Collectors.toList()))
                 .append("elo", eloMap.entrySet().stream().map(kitIntegerEntry -> kitIntegerEntry.getKey().getName() + ":" + kitIntegerEntry.getValue()).collect(Collectors.toList()))
                 .append("loadout", customLoadOutMap.stream().map(CustomLoadOut::serialize).collect(Collectors.toList()));
