@@ -1,6 +1,7 @@
 package surf.pvp.practice.tournaments;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import surf.pvp.practice.SurfPractice;
@@ -10,6 +11,7 @@ import surf.pvp.practice.listener.events.impl.tournament.global.TournamentEndEve
 import surf.pvp.practice.listener.events.impl.tournament.global.TournamentStartEvent;
 import surf.pvp.practice.listener.events.impl.tournament.player.PlayerJoinTournamentEvent;
 import surf.pvp.practice.listener.events.impl.tournament.player.PlayerLeaveTournamentEvent;
+import surf.pvp.practice.listener.events.impl.tournament.round.TournamentEndRoundEvent;
 import surf.pvp.practice.match.impl.TournamentMatch;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileState;
@@ -20,6 +22,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
+@Setter
 public class Tournament {
 
     private final Kit kit;
@@ -28,6 +31,7 @@ public class Tournament {
     private List<Player> originalList = new ArrayList<>();
 
     private TournamentState tournamentState = TournamentState.WAITING;
+    private int round, countdown;
 
     /**
      * Starts a tournament
@@ -78,7 +82,23 @@ public class Tournament {
      */
 
     public final void end(UUID uuid) {
+
         if (playerList.size() > 2) {
+            final List<Player> playersInMatch = playerList.stream().filter(player ->
+                            SurfPractice.getInstance().getProfileHandler().getProfile(player.getUniqueId())
+                                    .getMatch() == null).collect(Collectors.toList());
+
+            if (playersInMatch.isEmpty()) {
+                Bukkit.getPluginManager().callEvent(new TournamentEndRoundEvent(this));
+
+                this.tournamentState = TournamentState.ENDED_ROUND;
+
+                round++;
+
+                this.tournamentState = TournamentState.STARTING_ROUND;
+                this.countdown = 5;
+            }
+
             return;
         }
 
@@ -110,24 +130,19 @@ public class Tournament {
             Bukkit.getPluginManager().callEvent(new TournamentStartEvent(this));
         }
 
-        final List<Player> notInMatch = playerList.stream()
-                .filter(player -> SurfPractice.getInstance().getProfileHandler().getProfile(player.getUniqueId()).getMatch() == null)
-                .collect(Collectors.toList());
+        final List<Player> playersToMove = playerList;
 
-        if (notInMatch.isEmpty())
-            return;
-
-        for (int i = 0; i < notInMatch.size() / 2; i++) {
-            final Player playerOne = notInMatch.get(0);
-            final Player playerTwo = notInMatch.get(1);
+        for (int i = 0; i < playersToMove.size() / 2; i++) {
+            final Player playerOne = playersToMove.get(0);
+            final Player playerTwo = playersToMove.get(1);
 
             final Arena arena = SurfPractice.getInstance().getArenaHandler().getAvailableArena(kit);
 
             if (arena == null)
                 return;
 
-            notInMatch.remove(0);
-            notInMatch.remove(1);
+            playersToMove.remove(0);
+            playersToMove.remove(1);
 
             new TournamentMatch(arena, kit, this, playerOne, playerTwo);
         }

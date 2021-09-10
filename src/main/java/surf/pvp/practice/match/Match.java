@@ -59,6 +59,12 @@ public abstract class Match {
         Bukkit.getPluginManager().callEvent(customEvent);
     }
 
+    /**
+     * Adds a spectator to a match
+     *
+     * @param player player to add
+     */
+
     public final void addSpectator(Player player) {
         final Profile profile = SurfPractice.getInstance().getProfileHandler().getProfile(player.getUniqueId());
 
@@ -68,6 +74,12 @@ public abstract class Match {
         spectators.add(player);
         Bukkit.getPluginManager().callEvent(new SpectateMatchEvent(player, this));
     }
+
+    /**
+     * Removes a spectator from a match
+     *
+     * @param player player to remove
+     */
 
     public final void removeSpectator(Player player) {
         final Profile profile = SurfPractice.getInstance().getProfileHandler().getProfile(player.getUniqueId());

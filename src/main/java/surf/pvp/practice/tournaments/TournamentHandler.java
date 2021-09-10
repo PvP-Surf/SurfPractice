@@ -3,6 +3,7 @@ package surf.pvp.practice.tournaments;
 import lombok.Getter;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.kit.Kit;
+import surf.pvp.practice.tournaments.tasks.TournamentStartTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ public class TournamentHandler {
 
     public TournamentHandler(SurfPractice surfPractice) {
         this.surfPractice = surfPractice;
+
+        new TournamentStartTask(this).runTaskTimerAsynchronously(surfPractice, 20L, 20L);
     }
 
     /**
