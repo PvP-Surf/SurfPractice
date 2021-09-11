@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import org.bson.Document;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.clan.Clan;
-import surf.pvp.practice.killeffect.KillEffectType;
+import surf.pvp.practice.profile.killeffect.KillEffectType;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileStorage;
 import surf.pvp.practice.profile.loadout.CustomLoadOut;

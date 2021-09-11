@@ -1,4 +1,4 @@
-package surf.pvp.practice.killeffect;
+package surf.pvp.practice.profile.killeffect;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

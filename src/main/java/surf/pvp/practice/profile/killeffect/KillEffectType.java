@@ -1,8 +1,8 @@
-package surf.pvp.practice.killeffect;
+package surf.pvp.practice.profile.killeffect;
 
 import lombok.Getter;
-import surf.pvp.practice.killeffect.impl.ItemsKillEffectAdapter;
-import surf.pvp.practice.killeffect.impl.LightningKillEffectAdapter;
+import surf.pvp.practice.profile.killeffect.impl.ItemsKillEffectAdapter;
+import surf.pvp.practice.profile.killeffect.impl.LightningKillEffectAdapter;
 
 @Getter
 public enum KillEffectType {
