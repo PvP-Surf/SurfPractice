@@ -1,9 +1,9 @@
-package surf.pvp.practice.killeffect.impl;
+package surf.pvp.practice.profile.killeffect.impl;
 
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import surf.pvp.practice.killeffect.KillEffectAdapter;
+import surf.pvp.practice.profile.killeffect.KillEffectAdapter;
 
 public class LightningKillEffectAdapter implements KillEffectAdapter {
 

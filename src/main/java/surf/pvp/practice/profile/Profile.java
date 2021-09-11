@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import surf.pvp.practice.Locale;
 import surf.pvp.practice.clan.Clan;
-import surf.pvp.practice.killeffect.KillEffectType;
+import surf.pvp.practice.profile.killeffect.KillEffectType;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.party.Party;
