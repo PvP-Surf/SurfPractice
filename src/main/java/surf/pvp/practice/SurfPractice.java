@@ -5,6 +5,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import surf.pvp.practice.arena.ArenaHandler;
 import surf.pvp.practice.clan.ClanHandler;
+import surf.pvp.practice.joinitems.JoinItemHandler;
 import surf.pvp.practice.kit.KitHandler;
 import surf.pvp.practice.leaderboard.LeaderboardHandler;
 import surf.pvp.practice.leaderboard.impl.LeaderboardElement;
@@ -25,6 +26,7 @@ public class SurfPractice extends JavaPlugin {
     private ArenaHandler arenaHandler;
     private KitHandler kitHandler;
     private TournamentHandler tournamentHandler;
+    private JoinItemHandler joinItemHandler;
 
     /**
      * Loading logic of the plugin
@@ -50,6 +52,7 @@ public class SurfPractice extends JavaPlugin {
 
         this.profileHandler = new ProfileHandler(this);
         this.tournamentHandler = new TournamentHandler(this);
+        this.joinItemHandler = new JoinItemHandler(this);
 
         this.registerPlugin();
         new LeaderboardHandler(this, new LeaderboardElement(), 300 * 20L);
