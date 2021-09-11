@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import surf.pvp.practice.Locale;
 import surf.pvp.practice.clan.Clan;
+import surf.pvp.practice.killeffect.KillEffectType;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.party.Party;
@@ -32,6 +33,7 @@ public class Profile {
     private final List<Clan> clanList = new ArrayList<>();
 
     private int win, loss, kills, deaths, xp, coins;
+    private KillEffectType killEffectType;
     private ProfileSettings settings;
 
     private ProfileState profileState = ProfileState.LOBBY;
@@ -147,6 +149,7 @@ public class Profile {
                 .append("loss", loss)
                 .append("kills", kills)
                 .append("deaths", deaths)
+                .append("effect", killEffectType.name().toUpperCase())
                 .append("xp", xp)
                 .append("coins", coins)
                 .append("name", getPlayer().getName())

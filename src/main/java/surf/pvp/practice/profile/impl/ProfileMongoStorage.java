@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.bson.Document;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.clan.Clan;
+import surf.pvp.practice.killeffect.KillEffectType;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileStorage;
 import surf.pvp.practice.profile.loadout.CustomLoadOut;
@@ -38,6 +39,7 @@ public class ProfileMongoStorage implements ProfileStorage {
             profile.setLoss(document.getInteger("loss"));
             profile.setWin(document.getInteger("win"));
             profile.setXp(document.getInteger("xp"));
+            profile.setKillEffectType(KillEffectType.valueOf(document.getString("effect").toUpperCase()));
 
             ProfileSettings profileSettings = new ProfileSettings();
             profileSettings.load(document);
