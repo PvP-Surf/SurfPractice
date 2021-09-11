@@ -1,4 +1,4 @@
-package surf.pvp.practice.joinitems;
+package surf.pvp.practice.profile.joinitems;
 
 import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.Bukkit;

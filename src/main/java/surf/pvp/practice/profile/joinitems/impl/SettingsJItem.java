@@ -1,9 +1,9 @@
-package surf.pvp.practice.joinitems.impl;
+package surf.pvp.practice.profile.joinitems.impl;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
-import surf.pvp.practice.joinitems.JoinItem;
+import surf.pvp.practice.profile.joinitems.JoinItem;
 import surf.pvp.practice.util.ItemBuilder;
 
 public class SettingsJItem extends JoinItem {
