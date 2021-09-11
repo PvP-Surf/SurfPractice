@@ -1,4 +1,4 @@
-package surf.pvp.practice.profile.hotbar.adapter.impl;
+package surf.pvp.practice.profile.hotbar.adapter.impl.core;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;

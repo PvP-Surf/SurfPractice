@@ -3,10 +3,13 @@ package surf.pvp.practice.kit;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import surf.pvp.practice.SurfPractice;
+import surf.pvp.practice.queue.QueueType;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class KitHandler {
 
@@ -81,6 +84,17 @@ public class KitHandler {
 
     public final Kit getKit(String name) {
         return kitMap.get(name.toUpperCase());
+    }
+
+    /**
+     * Gets all kits with the certain queue type
+     *
+     * @param queueType queue type of kit
+     * @return {@link java.util.List<Kit>}
+     */
+
+    public final List<Kit> getKits(QueueType queueType, boolean elo) {
+        return kitMap.values().stream().filter(kit -> kit.getQueue(queueType) != null && kit.isElo() == elo).collect(Collectors.toList());
     }
 
     /**
