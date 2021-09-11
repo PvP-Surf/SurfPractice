@@ -1,26 +1,10 @@
 package surf.pvp.practice.profile.hotbar;
 
+import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 
+@UtilityClass
 public class HotbarLoadOut {
-
-    private static HotbarLoadOut instance;
-
-    /**
-     * Initilizes/Create the instance if
-     * null
-     *
-     * @return instance
-     */
-
-    public static HotbarLoadOut getInstance() {
-        if (instance == null) {
-            instance = new HotbarLoadOut();
-            return instance;
-        }
-
-        return instance;
-    }
 
     /**
      * Gives all the hotbar items to a player
