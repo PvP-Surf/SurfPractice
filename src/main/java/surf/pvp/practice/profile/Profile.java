@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import surf.pvp.practice.Locale;
 import surf.pvp.practice.clan.Clan;
+import surf.pvp.practice.profile.hotbar.HotbarLoadOut;
 import surf.pvp.practice.profile.killeffect.KillEffectType;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.match.Match;
@@ -134,6 +135,41 @@ public class Profile {
 
             player.getInventory().addItem(stack);
         });
+    }
+
+    /**
+     * Sets the state of the profile and sets it's hotbar
+     *
+     * @param profileState state of profile
+     */
+
+    public final void setProfileState(ProfileState profileState) {
+        this.profileState = profileState;
+        this.updateHotbar();
+    }
+
+    /**
+     * Updates the hotbar
+     */
+
+    public final void updateHotbar() {
+        final Player player = getPlayer();
+
+        if (player == null)
+            return;
+
+        switch (profileState) {
+            case LOBBY:
+                HotbarLoadOut.giveSpawnHotbar(player);
+                break;
+            case QUEUE:
+                HotbarLoadOut.giveQueueItems(player);
+            case IN_PARTY:
+                HotbarLoadOut.givePartyItems(player);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
