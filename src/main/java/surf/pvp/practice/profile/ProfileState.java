@@ -8,6 +8,7 @@ public enum ProfileState {
     IN_TOURNAMENT_LOBBY,
     IN_PARTY,
     SPECTATING,
+    EVENT,
     IN_MATCH
 
 }

@@ -3,6 +3,8 @@ package surf.pvp.practice.kit;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import surf.pvp.practice.SurfPractice;
+import surf.pvp.practice.profile.Profile;
+import surf.pvp.practice.queue.QueueRule;
 import surf.pvp.practice.queue.QueueType;
 
 import java.util.Collection;
@@ -44,11 +46,16 @@ public class KitHandler {
      * Creates a kit
      *
      * @param name name of kit
-     * @param elo  if kit is elo or not
      */
 
-    public final void createKit(String name, boolean elo) {
-        kitMap.put(name.toUpperCase(), new Kit(name, elo));
+    public final Kit createKit(String name) {
+        final Kit kit =  kitMap.put(name.toUpperCase(), new Kit(name));
+
+        for (Profile profile : surfPractice.getProfileHandler().getProfiles()) {
+            profile.getEloMap().put(kit, 1000);
+        }
+
+        return kit;
     }
 
     /**
@@ -94,7 +101,8 @@ public class KitHandler {
      */
 
     public final List<Kit> getKits(QueueType queueType, boolean elo) {
-        return kitMap.values().stream().filter(kit -> kit.getQueue(queueType) != null && kit.isElo() == elo).collect(Collectors.toList());
+        final QueueRule queueRule = elo ? QueueRule.ELO : QueueRule.NO_ELO;
+        return kitMap.values().stream().filter(kit -> kit.getQueue(queueType, queueRule) != null).collect(Collectors.toList());
     }
 
     /**

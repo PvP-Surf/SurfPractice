@@ -17,8 +17,7 @@ import java.util.Map;
 @Setter
 public abstract class Menu {
 
-
-    private final Player player;
+    protected final Player player;
     public final String title;
     private final int size;
 
@@ -37,6 +36,14 @@ public abstract class Menu {
     public Menu(Player player, String title, int size) {
         this.player = player;
         this.size = size;
+        this.title = title;
+
+        this.registerMenu();
+    }
+
+    public Menu(Player player, String title) {
+        this.player = player;
+        this.size = this.size(getButtons());
         this.title = title;
 
         this.registerMenu();
@@ -135,6 +142,18 @@ public abstract class Menu {
      */
 
     public void close(Player player, InventoryCloseEvent event) {
+    }
+
+    public int size(Map<Integer, Button> buttons) {
+        int highest = 0;
+
+        for (int buttonValue : buttons.keySet()) {
+            if (buttonValue > highest) {
+                highest = buttonValue;
+            }
+        }
+
+        return (int) (Math.ceil((highest + 1) / 9D) * 9D);
     }
 
 }

@@ -25,6 +25,7 @@ public class ProfileHandler {
         this.surfPractice = surfPractice;
 
         profileStorage = new ProfileMongoStorage(surfPractice);
+        surfPractice.getServer().getPluginManager().registerEvents(new ProfileListener(this), surfPractice);
     }
 
     /**
@@ -74,6 +75,16 @@ public class ProfileHandler {
 
     public final Collection<Profile> getProfiles() {
         return profileMap.values();
+    }
+
+    /**
+     * Gets the number of matches
+     *
+     * @return {@link Integer}
+     */
+
+    public int getMatches() {
+        return (int) getProfiles().stream().filter(profile -> profile.getProfileState().equals(ProfileState.IN_MATCH)).count();
     }
 
 }

@@ -30,6 +30,7 @@ public abstract class Match {
     protected final List<Player> spectators = new ArrayList<>();
 
     private int countdown = 5;
+    private int timeInside;
     private MatchStatus matchStatus = MatchStatus.WAITING;
 
     /**

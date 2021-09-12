@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.queue.Queue;
+import surf.pvp.practice.queue.QueueRule;
 import surf.pvp.practice.queue.QueueType;
 import surf.pvp.practice.queue.impl.PartyKitQueue;
 import surf.pvp.practice.queue.impl.SoloKitQueue;
@@ -26,7 +27,6 @@ import java.util.List;
 public class Kit {
 
     private final String name;
-    private final boolean elo;
 
     private final List<Queue<?>> queues = new ArrayList<>();
 
@@ -41,14 +41,14 @@ public class Kit {
      * Kit Constructor
      *
      * @param name name of kit
-     * @param elo  if kit is elo or not
      */
 
-    public Kit(String name, boolean elo) {
+    public Kit(String name) {
         this.name = name;
-        this.elo = elo;
 
-        this.queues.add(new SoloKitQueue(this));
+        this.queues.add(new SoloKitQueue(this, QueueRule.NO_ELO));
+        this.queues.add(new SoloKitQueue(this, QueueRule.ELO));
+
         this.queues.add(new TeamKitQueue(this));
         this.queues.add(new PartyKitQueue(this));
     }
@@ -62,8 +62,6 @@ public class Kit {
     @SneakyThrows
     public Kit(Document document) {
         this.name = document.getString("_id");
-        this.elo = document.getBoolean("elo");
-
         this.kitType = KitType.valueOf(document.getString("type").toUpperCase());
 
         this.armorContents = Serializer.itemStackArrayFromBase64(document.getString("armor"));
@@ -72,7 +70,9 @@ public class Kit {
         this.icon = Material.valueOf(document.getString("icon").toUpperCase());
         this.color = document.getString("color");
 
-        this.queues.add(new SoloKitQueue(this));
+        this.queues.add(new SoloKitQueue(this, QueueRule.NO_ELO));
+        this.queues.add(new SoloKitQueue(this, QueueRule.ELO));
+
         this.queues.add(new TeamKitQueue(this));
         this.queues.add(new PartyKitQueue(this));
     }
@@ -84,8 +84,8 @@ public class Kit {
      * @return {@link Queue}
      */
 
-    public final Queue<?> getQueue(QueueType queueType) {
-        return queues.stream().filter(queue -> queue.getQueueType().equals(queueType)).findFirst().orElse(null);
+    public final Queue<?> getQueue(QueueType queueType, QueueRule queueRule) {
+        return queues.stream().filter(queue -> queue.getQueueType().equals(queueType) && queue.getQueueRule().equals(queueRule)).findFirst().orElse(null);
     }
 
     /**
@@ -142,7 +142,6 @@ public class Kit {
 
     public final Document toBson() {
         return new Document("_id", name)
-                .append("elo", elo)
                 .append("icon", icon.name().toUpperCase())
                 .append("color", color)
                 .append("priority", priority)

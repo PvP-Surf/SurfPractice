@@ -1,5 +1,6 @@
 package surf.pvp.practice.util;
 
+import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -57,6 +58,12 @@ public class PlayerUtil {
         player.setFoodLevel(20);
         player.setSprinting(true);
         player.removePotionEffect(PotionEffectType.JUMP);
+    }
+
+    @SneakyThrows
+    public static int getPing(Player player) {
+        Object entityPlayer = player.getClass().getMethod("getHandle").invoke(player);
+        return (int) entityPlayer.getClass().getField("ping").get(entityPlayer);
     }
 
     public static void removeItems(Inventory inventory, ItemStack item, int amount) {

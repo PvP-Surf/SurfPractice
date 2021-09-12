@@ -3,6 +3,7 @@ package surf.pvp.practice.queue.impl;
 import surf.pvp.practice.clan.Clan;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.queue.Queue;
+import surf.pvp.practice.queue.QueueRule;
 import surf.pvp.practice.queue.QueueType;
 
 public class ClanKitQueue extends Queue<Clan> {
@@ -13,7 +14,7 @@ public class ClanKitQueue extends Queue<Clan> {
      * @param kit kit to create the queue for
      */
     public ClanKitQueue(Kit kit) {
-        super(QueueType.CLAN, kit);
+        super(QueueType.CLAN, QueueRule.NO_ELO, kit);
     }
 
     /**

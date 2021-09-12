@@ -16,9 +16,11 @@ import surf.pvp.practice.match.Match;
 import surf.pvp.practice.party.Party;
 import surf.pvp.practice.profile.hotbar.HotbarItem;
 import surf.pvp.practice.profile.loadout.CustomLoadOut;
+import surf.pvp.practice.profile.remains.MatchRemains;
 import surf.pvp.practice.profile.settings.impl.ProfileSettings;
 import surf.pvp.practice.queue.Queue;
 import surf.pvp.practice.tournaments.Tournament;
+import surf.pvp.practice.util.cooldown.SimpleCooldown;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,6 +40,8 @@ public class Profile {
     private ProfileSettings settings;
 
     private ProfileState profileState = ProfileState.LOBBY;
+    private SimpleCooldown enderPearlCooldown = new SimpleCooldown(16);
+    private MatchRemains matchRemains = new MatchRemains();
 
     private Match match;
     private Party party;
@@ -170,6 +174,16 @@ public class Profile {
             default:
                 break;
         }
+    }
+
+    /**
+     * Has match remains
+     *
+     * @return {@link Boolean}
+     */
+
+    public final boolean hasMatchRemains()  {
+        return matchRemains.getArmor() != null && matchRemains.getContents() != null;
     }
 
     /**

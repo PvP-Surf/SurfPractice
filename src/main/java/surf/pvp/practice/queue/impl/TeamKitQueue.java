@@ -2,6 +2,7 @@ package surf.pvp.practice.queue.impl;
 
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.queue.Queue;
+import surf.pvp.practice.queue.QueueRule;
 import surf.pvp.practice.queue.QueueType;
 
 import java.util.UUID;
@@ -15,7 +16,7 @@ public class TeamKitQueue extends Queue<UUID> {
      */
 
     public TeamKitQueue(Kit kit) {
-        super(QueueType.TEAM, kit);
+        super(QueueType.TEAM, QueueRule.NO_ELO, kit);
     }
 
     /**

@@ -7,9 +7,11 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import surf.pvp.practice.util.CC;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -100,6 +102,11 @@ public class Button implements Cloneable {
 
     public Button setLore(String[] lore) {
         this.lore = lore;
+        return this;
+    }
+
+    public Button setLore(List<String> lore) {
+        this.lore = CC.translate(lore).toArray(new String[0]);
         return this;
     }
 

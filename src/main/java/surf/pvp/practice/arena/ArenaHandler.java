@@ -45,8 +45,8 @@ public class ArenaHandler {
      * @param name name of arena
      */
 
-    public final void createArena(String name) {
-        arenaMap.put(name.toUpperCase(), new Arena(name));
+    public final Arena createArena(String name) {
+        return arenaMap.put(name.toUpperCase(), new Arena(name));
     }
 
     /**
@@ -70,7 +70,7 @@ public class ArenaHandler {
      */
 
     public final Arena getAvailableArena(Kit kit) {
-        return arenaMap.values().stream().filter(arena -> !arena.isBusy() && arena.getKits().contains(kit)).findFirst().orElse(null);
+        return arenaMap.values().stream().filter(arena -> !arena.isBusy() && arena.getKits().contains(kit) && arena.isSetup()).findFirst().orElse(null);
     }
 
     /**

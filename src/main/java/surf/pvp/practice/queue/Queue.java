@@ -10,11 +10,10 @@ import java.util.List;
 public abstract class Queue<T> {
 
     protected final List<T> queue;
-
     protected final Kit kit;
-    protected final boolean elo;
 
     protected final QueueType queueType;
+    protected final QueueRule queueRule;
 
     /**
      * Queue Abstract Class
@@ -22,12 +21,11 @@ public abstract class Queue<T> {
      * @param kit kit to create the queue for
      */
 
-    public Queue(QueueType queueType, Kit kit) {
+    public Queue(QueueType queueType, QueueRule queueRule, Kit kit) {
         this.kit = kit;
-        this.elo = kit.isElo();
+        this.queueRule = queueRule;
 
         this.queueType = queueType;
-
         this.queue = new LinkedList<>();
     }
 
