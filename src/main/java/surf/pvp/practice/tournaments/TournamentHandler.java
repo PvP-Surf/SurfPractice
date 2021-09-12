@@ -32,8 +32,8 @@ public class TournamentHandler {
      * @param kit kit to create the tournament with
      */
 
-    public final void createTournament(Kit kit) {
-        tournaments.add(new Tournament(kit));
+    public final void createTournament(Kit kit, int playersToPlay) {
+        tournaments.add(new Tournament(kit, playersToPlay));
     }
 
     /**

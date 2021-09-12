@@ -199,7 +199,7 @@ public class Profile {
                 .append("loss", loss)
                 .append("kills", kills)
                 .append("deaths", deaths)
-                .append("effect", killEffectType.name().toUpperCase())
+                .append("effect", killEffectType == null ? "null" : killEffectType.name().toUpperCase())
                 .append("xp", xp)
                 .append("coins", coins)
                 .append("name", getPlayer().getName())

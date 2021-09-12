@@ -42,8 +42,10 @@ public abstract class Menu {
     }
 
     public Menu(Player player, String title) {
+        final Map<Integer, Button> buttonMap = getButtons();
+
         this.player = player;
-        this.size = this.size(getButtons());
+        this.size = buttonMap.size() <= 0 ? 9 : this.size(getButtons());
         this.title = title;
 
         this.registerMenu();

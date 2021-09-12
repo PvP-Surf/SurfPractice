@@ -1,0 +1,5 @@
+name: SurfPractice
+version: 1.0
+description: Custom Practice Core For PvP Surf
+main: surf.pvp.practice.SurfPractice
+author: damt

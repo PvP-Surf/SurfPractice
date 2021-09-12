@@ -14,7 +14,7 @@ public class HotbarLoadOut {
 
     public final void giveSpawnHotbar(Player player) {
         HotbarItem.UNRANKED.setItem(player, 0);
-        HotbarItem.RANKED.setItem(player, 2);
+        HotbarItem.RANKED.setItem(player, 1);
         HotbarItem.PARTY_CREATE.setItem(player, 4);
         HotbarItem.VIEW_LEADERBOARDS.setItem(player, 7);
         HotbarItem.SETTINGS.setItem(player, 8);
