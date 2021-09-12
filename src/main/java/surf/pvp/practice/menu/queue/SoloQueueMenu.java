@@ -4,7 +4,6 @@ import org.apache.commons.lang.WordUtils;
 import org.bukkit.entity.Player;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.kit.Kit;
-import surf.pvp.practice.queue.Queue;
 import surf.pvp.practice.queue.QueueRule;
 import surf.pvp.practice.queue.QueueType;
 import surf.pvp.practice.queue.impl.SoloKitQueue;

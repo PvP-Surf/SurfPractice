@@ -24,7 +24,7 @@ public class AssembleThread extends Thread {
 
     @Override
     public void run() {
-        while(true) {
+        while (true) {
             try {
                 tick();
                 sleep(assemble.getTicks() * 50);
@@ -117,7 +117,7 @@ public class AssembleThread extends Thread {
                 if (player.getScoreboard() != scoreboard && !assemble.isHook()) {
                     player.setScoreboard(scoreboard);
                 }
-            } catch(Exception e) {
+            } catch (Exception e) {
                 throw new AssembleException("There was an error updating " + player.getName() + "'s scoreboard.");
             }
         }

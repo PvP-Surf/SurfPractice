@@ -24,7 +24,7 @@ public class TabHandler {
      * @param plugin  the plugin to register the thread to
      * @param ticks   the amount it should update
      * @deprecated as of Tab API 1.1-SNAPSHOT, replaced by
-     *             {@link TabHandler#TabHandler(TabElementHandler, JavaPlugin, long)}
+     * {@link TabHandler#TabHandler(TabElementHandler, JavaPlugin, long)}
      */
     @Deprecated
     public TabHandler(TabAdapter adapter, TabElementHandler handler, JavaPlugin plugin, long ticks) {

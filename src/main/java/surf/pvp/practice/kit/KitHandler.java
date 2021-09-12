@@ -49,7 +49,7 @@ public class KitHandler {
      */
 
     public final Kit createKit(String name) {
-        final Kit kit =  kitMap.put(name.toUpperCase(), new Kit(name));
+        final Kit kit = kitMap.put(name.toUpperCase(), new Kit(name));
 
         for (Profile profile : surfPractice.getProfileHandler().getProfiles()) {
             profile.getEloMap().put(kit, 1000);

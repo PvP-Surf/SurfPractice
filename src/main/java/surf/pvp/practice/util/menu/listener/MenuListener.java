@@ -32,6 +32,6 @@ public class MenuListener implements Listener {
         final Optional<Menu> menu = this.menuHandler.findMenu(player);
 
         menu.ifPresent(value -> value.close(player, event));
-        menu.ifPresent(value ->  value.handleClose(event));
+        menu.ifPresent(value -> value.handleClose(event));
     }
 }

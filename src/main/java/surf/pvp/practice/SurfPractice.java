@@ -11,10 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import surf.pvp.practice.arena.Arena;
 import surf.pvp.practice.arena.ArenaHandler;
 import surf.pvp.practice.clan.ClanHandler;
-import surf.pvp.practice.commands.ArenaCommand;
-import surf.pvp.practice.commands.KitCommand;
-import surf.pvp.practice.commands.QueueCommand;
-import surf.pvp.practice.commands.ViewCommand;
+import surf.pvp.practice.commands.*;
 import surf.pvp.practice.commands.service.providers.ArenaCommandProvider;
 import surf.pvp.practice.commands.service.providers.KitCommandProvider;
 import surf.pvp.practice.commands.service.providers.MaterialCommandProvider;
@@ -114,7 +111,8 @@ public class SurfPractice extends JavaPlugin {
                 .bind(Arena.class, new ArenaCommandProvider(this))
                 .bind(Material.class, new MaterialCommandProvider()).build()
                 .register(new ViewCommand()).register(new QueueCommand())
-                .register(new ArenaCommand(this)).register(new KitCommand(this));
+                .register(new ArenaCommand(this)).register(new KitCommand(this))
+                .register(new EssentialCommands());
     }
 
 }

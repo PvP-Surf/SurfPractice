@@ -6,17 +6,7 @@ import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.ChannelPromise;
-import net.minecraft.server.v1_8_R3.ChatComponentText;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent;
-import net.minecraft.server.v1_8_R3.MinecraftServer;
-import net.minecraft.server.v1_8_R3.Packet;
-import net.minecraft.server.v1_8_R3.PacketPlayOutNamedEntitySpawn;
-import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerInfo;
-import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
-import net.minecraft.server.v1_8_R3.PacketPlayOutRespawn;
-import net.minecraft.server.v1_8_R3.PlayerConnection;
-import net.minecraft.server.v1_8_R3.PlayerInteractManager;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -25,11 +15,7 @@ import surf.pvp.practice.util.tab.client.ClientVersionUtil;
 import surf.pvp.practice.util.tab.skin.SkinType;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class v1_8_R3TabAdapter extends TabAdapter {
 
@@ -59,7 +45,7 @@ public class v1_8_R3TabAdapter extends TabAdapter {
             this.profiles.put(player, new GameProfile[80]);
         }
 
-        if (this.profiles.get(player).length < index+1 || this.profiles.get(player)[index] == null) {
+        if (this.profiles.get(player).length < index + 1 || this.profiles.get(player)[index] == null) {
             final GameProfile profile = new GameProfile(UUID.randomUUID(), text);
             final String[] skinData = SkinType.DARK_GRAY.getSkinData();
 
@@ -141,10 +127,10 @@ public class v1_8_R3TabAdapter extends TabAdapter {
     /**
      * Send an entry's data to a player
      *
-     * @param player   the player
-     * @param axis     the axis of the entry
-     * @param ping     the ping to display on the entry's position
-     * @param text     the text to display on the entry's position
+     * @param player the player
+     * @param axis   the axis of the entry
+     * @param ping   the ping to display on the entry's position
+     * @param text   the text to display on the entry's position
      * @return the current adapter instance
      */
     @Override
@@ -174,7 +160,7 @@ public class v1_8_R3TabAdapter extends TabAdapter {
      */
     @Override
     public TabAdapter addFakePlayers(Player player) {
-        if(!this.initialized.contains(player)) {
+        if (!this.initialized.contains(player)) {
             for (int i = 0; i < this.getMaxElements(player); i++) {
                 final GameProfile profile = this.profiles.get(player)[i];
                 final EntityPlayer entityPlayer = this.getEntityPlayer(profile);

@@ -19,12 +19,12 @@ public abstract class PaginatedMenu extends Menu {
     private NavigationPosition navigationPosition = NavigationPosition.BOTTOM;
 
     private Button previousPageButton = new Button(Material.ARROW)
-            .setDisplayName(ChatColor.GREEN + "Previous Page").setLore(new String[] {
+            .setDisplayName(ChatColor.GREEN + "Previous Page").setLore(new String[]{
                     CC.translate("&7Click to go back to the previous page")
             });
 
     private Button nextPageButton = new Button(Material.ARROW)
-            .setDisplayName(ChatColor.GREEN + "Next Page").setLore(new String[] {
+            .setDisplayName(ChatColor.GREEN + "Next Page").setLore(new String[]{
                     CC.translate("&7Click to jump to the next page")
             });
 
@@ -47,9 +47,9 @@ public abstract class PaginatedMenu extends Menu {
     /**
      * Constructor to make a new menu object
      *
-     * @param player the player to create the menu for
-     * @param title  the title to display at the top of the inventory
-     * @param size   the size of the inventory
+     * @param player   the player to create the menu for
+     * @param title    the title to display at the top of the inventory
+     * @param size     the size of the inventory
      * @param maxPages the maximum amount of pages
      */
     public PaginatedMenu(Player player, String title, int size, int maxPages) {

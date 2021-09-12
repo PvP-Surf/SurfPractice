@@ -25,6 +25,15 @@ public class MenuHandler {
     }
 
     /**
+     * Get the instance of the menu handler
+     *
+     * @return the instance
+     */
+    public static MenuHandler getInstance() {
+        return instance;
+    }
+
+    /**
      * Register a new menu to a player.
      *
      * @param player the player to register the menu for
@@ -51,15 +60,6 @@ public class MenuHandler {
      */
     public Optional<Menu> findMenu(Player player) {
         return Optional.ofNullable(this.menus.getOrDefault(player, null));
-    }
-
-    /**
-     * Get the instance of the menu handler
-     *
-     * @return the instance
-     */
-    public static MenuHandler getInstance() {
-        return instance;
     }
 
     /**

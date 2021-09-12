@@ -12,40 +12,40 @@ import surf.pvp.practice.util.assemble.events.AssembleBoardDestroyEvent;
 @Getter
 public class AssembleListener implements Listener {
 
-	private final Assemble assemble;
+    private final Assemble assemble;
 
-	/**
-	 * Assemble Listener.
-	 *
-	 * @param assemble instance.
-	 */
-	public AssembleListener(Assemble assemble) {
-		this.assemble = assemble;
-	}
+    /**
+     * Assemble Listener.
+     *
+     * @param assemble instance.
+     */
+    public AssembleListener(Assemble assemble) {
+        this.assemble = assemble;
+    }
 
-	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent event) {
-		AssembleBoardCreateEvent createEvent = new AssembleBoardCreateEvent(event.getPlayer());
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        AssembleBoardCreateEvent createEvent = new AssembleBoardCreateEvent(event.getPlayer());
 
-		Bukkit.getPluginManager().callEvent(createEvent);
-		if (createEvent.isCancelled()) {
-			return;
-		}
+        Bukkit.getPluginManager().callEvent(createEvent);
+        if (createEvent.isCancelled()) {
+            return;
+        }
 
-		getAssemble().getBoards().put(event.getPlayer().getUniqueId(), new AssembleBoard(event.getPlayer(), getAssemble()));
-	}
+        getAssemble().getBoards().put(event.getPlayer().getUniqueId(), new AssembleBoard(event.getPlayer(), getAssemble()));
+    }
 
-	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent event) {
-		AssembleBoardDestroyEvent destroyEvent = new AssembleBoardDestroyEvent(event.getPlayer());
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        AssembleBoardDestroyEvent destroyEvent = new AssembleBoardDestroyEvent(event.getPlayer());
 
-		Bukkit.getPluginManager().callEvent(destroyEvent);
-		if (destroyEvent.isCancelled()) {
-			return;
-		}
+        Bukkit.getPluginManager().callEvent(destroyEvent);
+        if (destroyEvent.isCancelled()) {
+            return;
+        }
 
-		getAssemble().getBoards().remove(event.getPlayer().getUniqueId());
-		event.getPlayer().setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
-	}
+        getAssemble().getBoards().remove(event.getPlayer().getUniqueId());
+        event.getPlayer().setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+    }
 
 }

@@ -85,7 +85,7 @@ public class TabElement {
     /**
      * Add a new entry to the element
      *
-     * @param index the index to get the axiss from
+     * @param index    the index to get the axiss from
      * @param text     the text to display on the slot
      * @param ping     the ping to display
      * @param skinData the data to display in the skin slot
@@ -110,7 +110,7 @@ public class TabElement {
     /**
      * Add a new entry to the element
      *
-     * @param index the index to get the axiss from
+     * @param index    the index to get the axiss from
      * @param text     the text to display on the slot
      * @param ping     the ping to display
      * @param skinType the data to display in the skin slot

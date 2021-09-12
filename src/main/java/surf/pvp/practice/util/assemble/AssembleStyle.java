@@ -15,7 +15,7 @@ public enum AssembleStyle {
     /**
      * Assemble Style.
      *
-     * @param descending whether the positions are going down or up.
+     * @param descending  whether the positions are going down or up.
      * @param startNumber from where to loop from.
      */
     AssembleStyle(boolean descending, int startNumber) {

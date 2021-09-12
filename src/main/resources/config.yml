@@ -1,4 +1,5 @@
 server-name: ""
+enderpearl-cooldown: 16
 
 join-message:
   - "&7&m-----------------------------"

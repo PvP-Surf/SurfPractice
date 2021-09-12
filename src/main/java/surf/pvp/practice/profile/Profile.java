@@ -9,12 +9,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import surf.pvp.practice.Locale;
 import surf.pvp.practice.clan.Clan;
-import surf.pvp.practice.profile.hotbar.HotbarLoadOut;
-import surf.pvp.practice.profile.killeffect.KillEffectType;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.party.Party;
 import surf.pvp.practice.profile.hotbar.HotbarItem;
+import surf.pvp.practice.profile.hotbar.HotbarLoadOut;
+import surf.pvp.practice.profile.killeffect.KillEffectType;
 import surf.pvp.practice.profile.loadout.CustomLoadOut;
 import surf.pvp.practice.profile.remains.MatchRemains;
 import surf.pvp.practice.profile.settings.impl.ProfileSettings;
@@ -40,7 +40,7 @@ public class Profile {
     private ProfileSettings settings;
 
     private ProfileState profileState = ProfileState.LOBBY;
-    private SimpleCooldown enderPearlCooldown = new SimpleCooldown(16);
+    private SimpleCooldown enderPearlCooldown = new SimpleCooldown(Locale.ENDERPEARL.getInteger());
     private MatchRemains matchRemains = new MatchRemains();
 
     private Match match;
@@ -182,7 +182,7 @@ public class Profile {
      * @return {@link Boolean}
      */
 
-    public final boolean hasMatchRemains()  {
+    public final boolean hasMatchRemains() {
         return matchRemains.getArmor() != null && matchRemains.getContents() != null;
     }
 

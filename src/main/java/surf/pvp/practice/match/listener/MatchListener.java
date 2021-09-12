@@ -2,9 +2,11 @@ package surf.pvp.practice.match.listener;
 
 import lombok.AllArgsConstructor;
 import org.bukkit.GameMode;
+import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.listener.events.impl.global.PracticeDeathEvent;
@@ -82,6 +84,24 @@ public class MatchListener implements Listener {
             match.end(killer.get().getUniqueId(), false);
         } else {
             match.end(player.getUniqueId(), true);
+        }
+    }
+
+    @EventHandler
+    public final void onProjectileLaunchEvent(ProjectileLaunchEvent event) {
+        if (!(event.getEntity() instanceof EnderPearl))
+            return;
+
+        EnderPearl enderPearl = (EnderPearl) event.getEntity();
+
+        if (!(enderPearl.getShooter() instanceof Player))
+            return;
+
+        Player player = (Player) enderPearl.getShooter();
+        Profile profile = SurfPractice.getInstance().getProfileHandler().getProfile(player.getUniqueId());
+
+        if (profile.getMatch() != null) {
+            profile.getEnderPearlCooldown().put();
         }
     }
 

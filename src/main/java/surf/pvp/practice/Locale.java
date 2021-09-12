@@ -9,7 +9,8 @@ import java.util.List;
 public enum Locale {
 
     SERVER_NAME("server-name"),
-    JOIN_MESSAGE("join-message");
+    JOIN_MESSAGE("join-message"),
+    ENDERPEARL("enderpearl-cooldown");
 
     private final FileConfiguration fileConfiguration;
     private final String path;

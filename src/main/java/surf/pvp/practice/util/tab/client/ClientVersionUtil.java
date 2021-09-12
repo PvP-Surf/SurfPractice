@@ -19,9 +19,9 @@ public class ClientVersionUtil {
     public static int getProtocolVersion(Player player) {
         final PluginManager pluginManager = Bukkit.getPluginManager();
 
-        if(pluginManager.getPlugin("ViaVersion") != null) {
+        if (pluginManager.getPlugin("ViaVersion") != null) {
             return Via.getAPI().getPlayerVersion(player.getUniqueId());
-        } else if(pluginManager.getPlugin("ProtocolSupport") != null) {
+        } else if (pluginManager.getPlugin("ProtocolSupport") != null) {
             return ProtocolSupportAPI.getProtocolVersion(player).getId();
         }
 

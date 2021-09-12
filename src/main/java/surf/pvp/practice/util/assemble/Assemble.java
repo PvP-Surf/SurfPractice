@@ -12,99 +12,100 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Getter @Setter
+@Getter
+@Setter
 public class Assemble {
 
-	private JavaPlugin plugin;
+    private JavaPlugin plugin;
 
-	private AssembleAdapter adapter;
-	private AssembleThread thread;
-	private AssembleListener listeners;
-	private AssembleStyle assembleStyle = AssembleStyle.MODERN;
+    private AssembleAdapter adapter;
+    private AssembleThread thread;
+    private AssembleListener listeners;
+    private AssembleStyle assembleStyle = AssembleStyle.MODERN;
 
-	private Map<UUID, AssembleBoard> boards;
+    private Map<UUID, AssembleBoard> boards;
 
-	private long ticks = 2;
-	private boolean hook = false, debugMode = true;
+    private long ticks = 2;
+    private boolean hook = false, debugMode = true;
 
-	/**
-	 * Assemble.
-	 *
-	 * @param plugin instance.
-	 * @param adapter
-	 */
-	public Assemble(JavaPlugin plugin, AssembleAdapter adapter, AssembleStyle assembleStyle, long ticks) {
-		if (plugin == null) {
-			throw new RuntimeException("Assemble can not be instantiated without a plugin instance!");
-		}
+    /**
+     * Assemble.
+     *
+     * @param plugin  instance.
+     * @param adapter
+     */
+    public Assemble(JavaPlugin plugin, AssembleAdapter adapter, AssembleStyle assembleStyle, long ticks) {
+        if (plugin == null) {
+            throw new RuntimeException("Assemble can not be instantiated without a plugin instance!");
+        }
 
-		this.plugin = plugin;
-		this.adapter = adapter;
-		this.boards = new ConcurrentHashMap<>();
-		this.assembleStyle = assembleStyle;
-		this.ticks = ticks;
+        this.plugin = plugin;
+        this.adapter = adapter;
+        this.boards = new ConcurrentHashMap<>();
+        this.assembleStyle = assembleStyle;
+        this.ticks = ticks;
 
-		this.setup();
-	}
+        this.setup();
+    }
 
-	/**
-	 * Setup Assemble.
-	 */
-	public void setup() {
-		// Register Events.
-		this.listeners = new AssembleListener(this);
-		this.plugin.getServer().getPluginManager().registerEvents(listeners, this.plugin);
+    /**
+     * Setup Assemble.
+     */
+    public void setup() {
+        // Register Events.
+        this.listeners = new AssembleListener(this);
+        this.plugin.getServer().getPluginManager().registerEvents(listeners, this.plugin);
 
-		// Ensure that the thread has stopped running.
-		if (this.thread != null) {
-			this.thread.stop();
-			this.thread = null;
-		}
+        // Ensure that the thread has stopped running.
+        if (this.thread != null) {
+            this.thread.stop();
+            this.thread = null;
+        }
 
-		// Register new boards for existing online players.
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			// Make sure it doesn't double up.
-			AssembleBoardCreateEvent createEvent = new AssembleBoardCreateEvent(player);
+        // Register new boards for existing online players.
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            // Make sure it doesn't double up.
+            AssembleBoardCreateEvent createEvent = new AssembleBoardCreateEvent(player);
 
-			Bukkit.getPluginManager().callEvent(createEvent);
-			if (createEvent.isCancelled()) {
-				return;
-			}
+            Bukkit.getPluginManager().callEvent(createEvent);
+            if (createEvent.isCancelled()) {
+                return;
+            }
 
-			getBoards().putIfAbsent(player.getUniqueId(), new AssembleBoard(player, this));
-		}
+            getBoards().putIfAbsent(player.getUniqueId(), new AssembleBoard(player, this));
+        }
 
-		// Start Thread.
-		this.thread = new AssembleThread(this);
-	}
+        // Start Thread.
+        this.thread = new AssembleThread(this);
+    }
 
-	/**
-	 *
-	 */
-	public void cleanup() {
-		// Stop thread.
-		if (this.thread != null) {
-			this.thread.stop();
-			this.thread = null;
-		}
+    /**
+     *
+     */
+    public void cleanup() {
+        // Stop thread.
+        if (this.thread != null) {
+            this.thread.stop();
+            this.thread = null;
+        }
 
-		// Unregister listeners.
-		if (listeners != null) {
-			HandlerList.unregisterAll(listeners);
-			listeners = null;
-		}
+        // Unregister listeners.
+        if (listeners != null) {
+            HandlerList.unregisterAll(listeners);
+            listeners = null;
+        }
 
-		// Destroy player scoreboards.
-		for (UUID uuid : getBoards().keySet()) {
-			Player player = Bukkit.getPlayer(uuid);
+        // Destroy player scoreboards.
+        for (UUID uuid : getBoards().keySet()) {
+            Player player = Bukkit.getPlayer(uuid);
 
-			if (player == null || !player.isOnline()) {
-				continue;
-			}
+            if (player == null || !player.isOnline()) {
+                continue;
+            }
 
-			getBoards().remove(uuid);
-			player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-		}
-	}
+            getBoards().remove(uuid);
+            player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+        }
+    }
 
 }

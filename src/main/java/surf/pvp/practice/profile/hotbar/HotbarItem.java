@@ -12,7 +12,6 @@ import surf.pvp.practice.profile.hotbar.adapter.impl.core.SettingsHotbarItem;
 import surf.pvp.practice.profile.hotbar.adapter.impl.core.ViewLeaderboardsItem;
 import surf.pvp.practice.profile.hotbar.adapter.impl.party.PartyCreateItem;
 import surf.pvp.practice.profile.hotbar.adapter.impl.queue.*;
-import surf.pvp.practice.util.CC;
 import surf.pvp.practice.util.ItemBuilder;
 
 @Getter

@@ -17,8 +17,8 @@ import java.util.Map;
 @Setter
 public abstract class Menu {
 
-    protected final Player player;
     public final String title;
+    protected final Player player;
     private final int size;
 
     private boolean updated;
@@ -84,7 +84,7 @@ public abstract class Menu {
 
     /**
      * The method to get the buttons for the current inventory tick
-     * 
+     * <p>
      * a button to a slot.
      */
     public abstract Map<Integer, Button> getButtons();
@@ -138,7 +138,7 @@ public abstract class Menu {
      * Handles the closing of the inventory
      *
      * @param player player closing the menu
-     * @param event even called
+     * @param event  even called
      */
 
     public void close(Player player, InventoryCloseEvent event) {

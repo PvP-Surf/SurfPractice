@@ -32,7 +32,7 @@ public class TabEntry {
      * @param x    the x axis
      * @param y    the y axis
      * @param text the text to display on the slot
-     * @param ping     the displayed latency
+     * @param ping the displayed latency
      */
     public TabEntry(int x, int y, String text, int ping) {
         this(x, y, text, ping, SkinType.DARK_GRAY.getSkinData());
