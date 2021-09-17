@@ -37,4 +37,11 @@ public class CC {
         return ts;
     }
 
+    public static boolean isDouble(double i) {
+        if (i % 1 == 0)
+            return true;
+
+        return false;
+    }
+
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import surf.pvp.practice.Locale;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.arena.Arena;
 import surf.pvp.practice.kit.Kit;
@@ -33,7 +34,7 @@ public class Tournament {
     private List<Player> originalList = new ArrayList<>();
 
     private TournamentState tournamentState = TournamentState.WAITING;
-    private int round = 1, countdown = 5;
+    private int round = 1, countdown = Locale.TOURNAMENT_COUNTDOWN.getInteger();
 
     /**
      * Starts a tournament
@@ -99,7 +100,7 @@ public class Tournament {
                 round++;
 
                 this.tournamentState = TournamentState.STARTING_ROUND;
-                this.countdown = 5;
+                this.countdown = Locale.TOURNAMENT_COUNTDOWN.getInteger();
             }
 
             return;

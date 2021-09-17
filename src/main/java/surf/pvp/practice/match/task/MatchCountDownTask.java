@@ -2,6 +2,7 @@ package surf.pvp.practice.match.task;
 
 import lombok.AllArgsConstructor;
 import org.bukkit.scheduler.BukkitRunnable;
+import surf.pvp.practice.Locale;
 import surf.pvp.practice.listener.events.impl.match.global.MatchEndCountdownEvent;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.match.MatchStatus;
@@ -37,7 +38,8 @@ public class MatchCountDownTask extends BukkitRunnable {
                 match.setMatchStatus(MatchStatus.STARTED);
                 match.callEvent(new MatchEndCountdownEvent(match));
             } else {
-                profile.getPlayer().sendMessage(CC.translate("&fMatch starts in &b" + match.getCountdown() + "&f...."));
+                profile.getPlayer().sendMessage(CC.translate(Locale.MATCH_COUNTDOWN_MESSAGE
+                        .getString().replace("{time}", String.valueOf(match.getCountdown()))));
                 match.setCountdown(match.getCountdown() - 1);
             }
 

@@ -1,5 +1,13 @@
-server-name: ""
+server-name: "" #used for clans
 enderpearl-cooldown: 16
+
+settings:
+  locations:
+    spawn: ""
+  countdown:
+    event: 5
+    match: 5
+    tournament: 5
 
 mongo:
   uri-mode: false
@@ -13,8 +21,3 @@ mongo:
   uri:
     database: Practice
     connection-string: mongodb://127.0.0.1:27017/Practice
-
-join-message:
-  - "&7&m-----------------------------"
-  - "&bWelcome to PvP Surf's Custom Practice Core"
-  - "&7&m-----------------------------"

@@ -9,6 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import surf.pvp.practice.util.CC;
 import surf.pvp.practice.util.menu.buttons.Button;
 
 import java.util.Map;
@@ -147,15 +148,16 @@ public abstract class Menu {
     }
 
     public int size(Map<Integer, Button> buttons) {
-        int highest = 0;
+        int size = buttons.size();
 
-        for (int buttonValue : buttons.keySet()) {
-            if (buttonValue > highest) {
-                highest = buttonValue;
-            }
+        if (size == 0)
+            return 9;
+
+        while (CC.isDouble(size / 9)) {
+            size++;
         }
 
-        return (int) (Math.ceil((highest + 1) / 9D) * 9D);
+        return size;
     }
 
 }

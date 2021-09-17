@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import surf.pvp.practice.Locale;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.arena.Arena;
 import surf.pvp.practice.enums.LocationEnum;
@@ -15,6 +16,7 @@ import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileState;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +31,7 @@ public abstract class Match {
     protected final Player[] players;
     protected final List<Player> spectators = new ArrayList<>();
 
-    private int countdown = 5;
+    private int countdown = Locale.MATCH_COUNTDOWN.getInteger();
     private int timeInside;
     private MatchStatus matchStatus = MatchStatus.WAITING;
 
@@ -90,6 +92,12 @@ public abstract class Match {
 
         spectators.remove(player);
         Bukkit.getPluginManager().callEvent(new LeaveSpectateMatchEvent(player, this));
+    }
+
+    public final List<Player> getAllPlayers() {
+        final List<Player> specs = new ArrayList<>(spectators);
+        specs.addAll(Arrays.asList(players));
+        return specs;
     }
 
     /**

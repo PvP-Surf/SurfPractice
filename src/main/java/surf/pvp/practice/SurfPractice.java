@@ -41,6 +41,7 @@ public class SurfPractice extends JavaPlugin {
 
     private ConfigFile tabFile;
     private ConfigFile scoreBoardFile;
+    private ConfigFile messagesFile;
 
     private ClanHandler clanHandler;
     private MongoHandler mongoHandler;
@@ -60,6 +61,7 @@ public class SurfPractice extends JavaPlugin {
         this.saveDefaultConfig();
         this.tabFile = new ConfigFile(getDataFolder(), "tab.yml");
         this.scoreBoardFile = new ConfigFile(getDataFolder(), "scoreboard.yml");
+        this.messagesFile = new ConfigFile(getDataFolder(), "messages.yml");
     }
 
     /**

@@ -1,6 +1,7 @@
 package surf.pvp.practice.match.listener;
 
 import lombok.AllArgsConstructor;
+import net.md_5.bungee.api.chat.ClickEvent;
 import org.bukkit.GameMode;
 import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Player;
@@ -8,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import surf.pvp.practice.Locale;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.listener.events.impl.global.PracticeDeathEvent;
 import surf.pvp.practice.listener.events.impl.match.global.MatchEndCountdownEvent;
@@ -15,8 +17,9 @@ import surf.pvp.practice.listener.events.impl.match.solo.MatchEndEvent;
 import surf.pvp.practice.listener.events.impl.match.solo.MatchStartEvent;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.profile.Profile;
-import surf.pvp.practice.profile.remains.MatchRemains;
+import surf.pvp.practice.util.CC;
 import surf.pvp.practice.util.PlayerUtil;
+import surf.pvp.practice.util.component.Component;
 
 import java.util.Optional;
 
@@ -42,10 +45,16 @@ public class MatchListener implements Listener {
 
     @EventHandler
     public final void onMatchCountdownEndEvent(MatchEndCountdownEvent event) {
-        Player[] players = event.getMatch().getPlayers();
+        Match match = event.getMatch();
+        Player[] players = match.getPlayers();
 
         for (Player player : players) {
             PlayerUtil.allowMovement(player);
+
+            Locale.MATCH_START.getStringList().forEach(string -> {
+                player.sendMessage(CC.translate(string.replace("{kit}", match.getKit().getName()))
+                        .replace("{arena}", match.getArena().getName()));
+            });
         }
     }
 
@@ -110,9 +119,21 @@ public class MatchListener implements Listener {
         final Player player = event.getWinner();
         final Player loser = event.getLoser();
 
-        final MatchRemains playerProfile = surfPractice.getProfileHandler().getProfile(player.getUniqueId()).getMatchRemains().update(player);
-        final MatchRemains loserProfile = surfPractice.getProfileHandler().getProfile(loser.getUniqueId()).getMatchRemains().update(loser);
 
+        final Component loserComponent = new Component(loser.getName()).setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/view " + loser.getUniqueId()));
+        final Component winnerComponent = new Component(player.getName()).setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/view " + player.getUniqueId()));
+
+        final Match match = event.getMatch();
+
+        Locale.MATCH_END.getStringList().forEach(string -> {
+            match.getAllPlayers().forEach(player1 -> {
+                player1.sendMessage(CC.translate(string.replace("{winner}",
+                        winnerComponent.get().toLegacyText())
+                        .replace("{loser}", loserComponent.get().toLegacyText())
+                        .replace("{arena}", match.getArena().getName()))
+                        .replace("{kit}", match.getKit().getName()));
+            });
+        });
     }
 
 }

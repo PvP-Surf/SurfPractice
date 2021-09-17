@@ -8,9 +8,19 @@ import java.util.List;
 
 public enum Locale {
 
-    SERVER_NAME("server-name"),
+
     JOIN_MESSAGE("join-message"),
-    ENDERPEARL("enderpearl-cooldown");
+    KIT_LORE("kit-lore"),
+
+    MATCH_COUNTDOWN(SurfPractice.getInstance().getConfig(), "settings.countdown.match"),
+    MATCH_COUNTDOWN_MESSAGE("match.countdown"),
+    MATCH_START("match.start"),
+    MATCH_END("match.end"),
+
+    SERVER_NAME(SurfPractice.getInstance().getConfig(), "server-name"),
+    EVENT_COUNTDOWN(SurfPractice.getInstance().getConfig(), "settings.countdown.event"),
+    TOURNAMENT_COUNTDOWN(SurfPractice.getInstance().getConfig(), "settings.countdown.tournament"),
+    ENDERPEARL(SurfPractice.getInstance().getConfig(), "enderpearl-cooldown");
 
     private final FileConfiguration fileConfiguration;
     private final String path;
@@ -34,7 +44,7 @@ public enum Locale {
      */
 
     Locale(String path) {
-        this.fileConfiguration = SurfPractice.getInstance().getConfig();
+        this.fileConfiguration = SurfPractice.getInstance().getMessagesFile().getConfig();
         this.path = path;
     }
 

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class ClanHandler {
+public class    ClanHandler {
 
     private final Map<UUID, Clan> clanMap = new HashMap<>();
     private final SurfPractice surfPractice;

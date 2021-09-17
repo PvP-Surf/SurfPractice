@@ -1,0 +1,31 @@
+kit-lore:
+  - " "
+  - "&bQueueing&f: {size}"
+  - ""
+
+join-message:
+  - "&7&m-----------------------------"
+  - "&bWelcome to PvP Surf's Custom Practice Core"
+  - "&7&m-----------------------------"
+
+match:
+  countdown: "&fMatch starting in &b{time}&f!"
+  start:
+    - "&fMatch has &bstarted!"
+  end:
+    - "&bMatch &fended!"
+    - " "
+    - "&bWinner&f: {winner}"
+    - "&bLoser&f: {loser}"
+    - " "
+
+queue:
+  join: "&fYou have joined &b{kit}&f's queue! &bElo&f: {elo}"
+  left: "&fYou have left &b{kit}&f's queue!"
+
+event:
+  round-end: "&b{player} &fhas won &b{round}&f!"
+  joined: "&fYou have joined &b{kit}&f's event!"
+  left: "&fYou have left &b{kit}&f's event!"
+  event-end:
+    - "&b{player} &fhas won &f{kit}'s &bevent!"
