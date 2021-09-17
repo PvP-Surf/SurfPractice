@@ -5,6 +5,7 @@ public enum QueueType {
     SOLO,
     TEAM,
     CLAN,
+    YOUTUBE,
     PARTY
 
 }

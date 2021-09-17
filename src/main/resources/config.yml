@@ -1,1 +1,20 @@
 server-name: ""
+enderpearl-cooldown: 16
+
+mongo:
+  uri-mode: false
+  normal:
+    host: 127.0.0.1
+    port: 27017
+    auth:
+      enabled: false
+      username: ''
+      password: ''
+  uri:
+    database: Practice
+    connection-string: mongodb://127.0.0.1:27017/Practice
+
+join-message:
+  - "&7&m-----------------------------"
+  - "&bWelcome to PvP Surf's Custom Practice Core"
+  - "&7&m-----------------------------"

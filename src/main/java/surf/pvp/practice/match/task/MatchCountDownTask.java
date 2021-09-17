@@ -7,6 +7,7 @@ import surf.pvp.practice.match.Match;
 import surf.pvp.practice.match.MatchStatus;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileHandler;
+import surf.pvp.practice.util.CC;
 
 @AllArgsConstructor
 public class MatchCountDownTask extends BukkitRunnable {
@@ -25,6 +26,10 @@ public class MatchCountDownTask extends BukkitRunnable {
             if (match == null)
                 return;
 
+            if (match.getMatchStatus().equals(MatchStatus.STARTED)) {
+                match.setTimeInside(match.getTimeInside() + 1);
+            }
+
             if (!match.getMatchStatus().equals(MatchStatus.START_COUNTDOWN))
                 return;
 
@@ -32,8 +37,10 @@ public class MatchCountDownTask extends BukkitRunnable {
                 match.setMatchStatus(MatchStatus.STARTED);
                 match.callEvent(new MatchEndCountdownEvent(match));
             } else {
+                profile.getPlayer().sendMessage(CC.translate("&fMatch starts in &b" + match.getCountdown() + "&f...."));
                 match.setCountdown(match.getCountdown() - 1);
             }
+
         }
     }
 

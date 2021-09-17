@@ -87,6 +87,25 @@ public class Arena {
     }
 
     /**
+     * Gets an available location of all 3
+     *
+     * @return {@link Location}
+     */
+
+    public final Location getAvailableLocation() {
+        if (positionOne != null)
+            return positionOne;
+
+        if (positionTwo != null)
+            return positionTwo;
+
+        if (centerPosition != null)
+            return centerPosition;
+
+        return null;
+    }
+
+    /**
      * Saves an arena to mongo
      *
      * @param surfPractice instance of {@link SurfPractice}

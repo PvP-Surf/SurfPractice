@@ -4,9 +4,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public enum Locale {
 
-    SERVER_NAME("server-name");
+    SERVER_NAME("server-name"),
+    JOIN_MESSAGE("join-message"),
+    ENDERPEARL("enderpearl-cooldown");
 
     private final FileConfiguration fileConfiguration;
     private final String path;
@@ -62,6 +66,16 @@ public enum Locale {
 
     public final boolean getBoolean() {
         return fileConfiguration.getBoolean(path);
+    }
+
+    /**
+     * Gets the string list
+     *
+     * @return {@link List<String>}
+     */
+
+    public final List<String> getStringList() {
+        return fileConfiguration.getStringList(path);
     }
 
     /**

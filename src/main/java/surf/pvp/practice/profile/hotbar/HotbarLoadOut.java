@@ -1,26 +1,10 @@
 package surf.pvp.practice.profile.hotbar;
 
+import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 
+@UtilityClass
 public class HotbarLoadOut {
-
-    private static HotbarLoadOut instance;
-
-    /**
-     * Initilizes/Create the instance if
-     * null
-     *
-     * @return instance
-     */
-
-    public static HotbarLoadOut getInstance() {
-        if (instance == null) {
-            instance = new HotbarLoadOut();
-            return instance;
-        }
-
-        return instance;
-    }
 
     /**
      * Gives all the hotbar items to a player
@@ -29,7 +13,11 @@ public class HotbarLoadOut {
      */
 
     public final void giveSpawnHotbar(Player player) {
-
+        HotbarItem.UNRANKED.setItem(player, 0);
+        HotbarItem.RANKED.setItem(player, 1);
+        HotbarItem.PARTY_CREATE.setItem(player, 4);
+        HotbarItem.VIEW_LEADERBOARDS.setItem(player, 7);
+        HotbarItem.SETTINGS.setItem(player, 8);
     }
 
     /**
@@ -39,7 +27,7 @@ public class HotbarLoadOut {
      */
 
     public final void giveQueueItems(Player player) {
-
+        HotbarItem.LEAVE_QUEUE.setItem(player, 4);
     }
 
     /**

@@ -7,6 +7,7 @@ import surf.pvp.practice.match.impl.SoloMatch;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileState;
 import surf.pvp.practice.queue.Queue;
+import surf.pvp.practice.queue.QueueRule;
 import surf.pvp.practice.queue.QueueType;
 
 import java.util.UUID;
@@ -19,8 +20,8 @@ public class SoloKitQueue extends Queue<UUID> {
      * @param kit kit to create the queue for
      */
 
-    public SoloKitQueue(Kit kit) {
-        super(QueueType.SOLO, kit);
+    public SoloKitQueue(Kit kit, QueueRule queueRule) {
+        super(QueueType.SOLO, queueRule, kit);
     }
 
     /**
@@ -32,7 +33,7 @@ public class SoloKitQueue extends Queue<UUID> {
         if (queue.isEmpty() || queue.size() < 2)
             return;
 
-        if (elo) {
+        if (queueRule.equals(QueueRule.ELO)) {
             this.moveElo();
             return;
         }

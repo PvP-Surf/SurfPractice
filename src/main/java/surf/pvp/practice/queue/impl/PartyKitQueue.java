@@ -3,6 +3,7 @@ package surf.pvp.practice.queue.impl;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.party.Party;
 import surf.pvp.practice.queue.Queue;
+import surf.pvp.practice.queue.QueueRule;
 import surf.pvp.practice.queue.QueueType;
 
 public class PartyKitQueue extends Queue<Party> {
@@ -13,7 +14,7 @@ public class PartyKitQueue extends Queue<Party> {
      * @param kit kit to create the queue for
      */
     public PartyKitQueue(Kit kit) {
-        super(QueueType.PARTY, kit);
+        super(QueueType.PARTY, QueueRule.NO_ELO, kit);
     }
 
     /**

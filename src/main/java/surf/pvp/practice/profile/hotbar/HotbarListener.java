@@ -24,9 +24,11 @@ public class HotbarListener implements Listener {
             ItemStack hotStack = hotbarItem.getItemStack();
 
             if (hotStack.isSimilar(stack)) {
-                hotbarItem.getPlayerInteractEventConsumer().accept(event);
+                hotbarItem.getHotbarAdapter().handle(event);
+                break;
             }
         }
+
     }
 
 }

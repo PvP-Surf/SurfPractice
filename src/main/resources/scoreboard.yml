@@ -1,0 +1,41 @@
+title: "&b&lPractice &f| EU"
+lines:
+  lobby:
+    - "&7&m---------------------"
+    - "&bOnline&f: <online>"
+    - "&bPlaying&f: <playing>"
+    - " "
+    - "&7pvp.surf"
+    - "&7&m---------------------"
+  match:
+    normal:
+      - "&7&m---------------------"
+      - "&bYou&f: <player> (<ping>)"
+      - "&bOpponent&f: <opponent> (<opponent_ping>)"
+      - " "
+      - "&bTime&f: <time>"
+      - "&7&m----------------------"
+    enderpearl:
+      - "&7&m---------------------"
+      - "&bYou&f: <player> (<ping>)"
+      - "&bOpponent&f: <opponent> (<opponent_ping>)"
+      - " "
+      - "&bEnderPearl&f: <cooldown>"
+      - "&7&m----------------------"
+  queue:
+    - "&7&m---------------------"
+    - "&bOnline&f: <online>"
+    - "&bPlaying&f: <playing>"
+    - " "
+    - "&bQueueing&f: <kit>"
+    - " "
+    - "&7pvp.surf"
+    - "&7&m---------------------"
+  party:
+    - "&7&m---------------------"
+    - "&b&l<name>"
+    - "&bLeader&f: <leader>"
+    - "&bSize&f: <size>/<max>"
+    - ""
+    - "&7pvp.surf"
+    - "&7&m---------------------"

@@ -14,10 +14,14 @@ import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.party.Party;
 import surf.pvp.practice.profile.hotbar.HotbarItem;
+import surf.pvp.practice.profile.hotbar.HotbarLoadOut;
+import surf.pvp.practice.profile.killeffect.KillEffectType;
 import surf.pvp.practice.profile.loadout.CustomLoadOut;
+import surf.pvp.practice.profile.remains.MatchRemains;
 import surf.pvp.practice.profile.settings.impl.ProfileSettings;
 import surf.pvp.practice.queue.Queue;
 import surf.pvp.practice.tournaments.Tournament;
+import surf.pvp.practice.util.cooldown.SimpleCooldown;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -33,9 +37,12 @@ public class Profile {
     private final List<Clan> clanList = new ArrayList<>();
 
     private int win, loss, kills, deaths, xp, coins;
+    private KillEffectType killEffectType;
     private ProfileSettings settings;
 
     private ProfileState profileState = ProfileState.LOBBY;
+    private SimpleCooldown enderPearlCooldown = new SimpleCooldown(Locale.ENDERPEARL.getInteger());
+    private MatchRemains matchRemains = new MatchRemains();
 
     private Match match;
     private Party party;
@@ -137,6 +144,51 @@ public class Profile {
     }
 
     /**
+     * Sets the state of the profile and sets it's hotbar
+     *
+     * @param profileState state of profile
+     */
+
+    public final void setProfileState(ProfileState profileState) {
+        this.profileState = profileState;
+        this.updateHotbar();
+    }
+
+    /**
+     * Updates the hotbar
+     */
+
+    public final void updateHotbar() {
+        final Player player = getPlayer();
+
+        if (player == null)
+            return;
+
+        switch (profileState) {
+            case LOBBY:
+                HotbarLoadOut.giveSpawnHotbar(player);
+                break;
+            case QUEUE:
+                HotbarLoadOut.giveQueueItems(player);
+            case IN_PARTY:
+                HotbarLoadOut.givePartyItems(player);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Has match remains
+     *
+     * @return {@link Boolean}
+     */
+
+    public final boolean hasMatchRemains() {
+        return matchRemains.getArmor() != null && matchRemains.getContents() != null;
+    }
+
+    /**
      * Creates a bson object and
      * stores data in it
      *
@@ -149,6 +201,7 @@ public class Profile {
                 .append("loss", loss)
                 .append("kills", kills)
                 .append("deaths", deaths)
+                .append("effect", killEffectType == null ? "null" : killEffectType.name().toUpperCase())
                 .append("xp", xp)
                 .append("coins", coins)
                 .append("name", getPlayer().getName())

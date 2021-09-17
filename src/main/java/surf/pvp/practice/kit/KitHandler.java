@@ -3,10 +3,15 @@ package surf.pvp.practice.kit;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import surf.pvp.practice.SurfPractice;
+import surf.pvp.practice.profile.Profile;
+import surf.pvp.practice.queue.QueueRule;
+import surf.pvp.practice.queue.QueueType;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class KitHandler {
 
@@ -41,11 +46,16 @@ public class KitHandler {
      * Creates a kit
      *
      * @param name name of kit
-     * @param elo  if kit is elo or not
      */
 
-    public final void createKit(String name, boolean elo) {
-        kitMap.put(name.toUpperCase(), new Kit(name, elo));
+    public final Kit createKit(String name) {
+        final Kit kit = kitMap.put(name.toUpperCase(), new Kit(name));
+
+        for (Profile profile : surfPractice.getProfileHandler().getProfiles()) {
+            profile.getEloMap().put(kit, 1000);
+        }
+
+        return kit;
     }
 
     /**
@@ -81,6 +91,18 @@ public class KitHandler {
 
     public final Kit getKit(String name) {
         return kitMap.get(name.toUpperCase());
+    }
+
+    /**
+     * Gets all kits with the certain queue type
+     *
+     * @param queueType queue type of kit
+     * @return {@link java.util.List<Kit>}
+     */
+
+    public final List<Kit> getKits(QueueType queueType, boolean elo) {
+        final QueueRule queueRule = elo ? QueueRule.ELO : QueueRule.NO_ELO;
+        return kitMap.values().stream().filter(kit -> kit.getQueue(queueType, queueRule) != null).collect(Collectors.toList());
     }
 
     /**
