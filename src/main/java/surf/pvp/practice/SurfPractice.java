@@ -41,7 +41,6 @@ public class SurfPractice extends JavaPlugin {
 
     private ConfigFile tabFile;
     private ConfigFile scoreBoardFile;
-    private ConfigFile messagesFile;
 
     private ClanHandler clanHandler;
     private MongoHandler mongoHandler;
@@ -61,7 +60,6 @@ public class SurfPractice extends JavaPlugin {
         this.saveDefaultConfig();
         this.tabFile = new ConfigFile(getDataFolder(), "tab.yml");
         this.scoreBoardFile = new ConfigFile(getDataFolder(), "scoreboard.yml");
-        this.messagesFile = new ConfigFile(getDataFolder(), "messages.yml");
     }
 
     /**
@@ -98,7 +96,7 @@ public class SurfPractice extends JavaPlugin {
      * Registration logic of the plugin
      */
 
-    public final void registerPlugin() {
+    private final void registerPlugin() {
         PluginManager pluginManager = this.getServer().getPluginManager();
 
         pluginManager.registerEvents(new PlayerDeathListener(), this);
@@ -110,7 +108,7 @@ public class SurfPractice extends JavaPlugin {
         new EventRegistration(this);
 
         Blade.of().binding(new BukkitBindings()).binding(new DefaultBindings()).containerCreator(BukkitCommandContainer.CREATOR)
-                .fallbackPrefix("pvpsurf").overrideCommands(true)
+                .fallbackPrefix("surf").overrideCommands(true)
                 .bind(Kit.class, new KitCommandProvider(this))
                 .bind(Arena.class, new ArenaCommandProvider(this))
                 .bind(Material.class, new MaterialCommandProvider()).build()

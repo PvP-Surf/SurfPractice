@@ -3,6 +3,7 @@ package surf.pvp.practice;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import surf.pvp.practice.util.CC;
 
 import java.util.List;
 
@@ -11,15 +12,11 @@ public enum Locale {
 
     JOIN_MESSAGE("join-message"),
 
-    MATCH_COUNTDOWN(SurfPractice.getInstance().getConfig(), "settings.countdown.match"),
-    MATCH_COUNTDOWN_MESSAGE("match.countdown"),
-    MATCH_START("match.start"),
-    MATCH_END("match.end"),
-
-    SERVER_NAME(SurfPractice.getInstance().getConfig(), "server-name"),
-    EVENT_COUNTDOWN(SurfPractice.getInstance().getConfig(), "settings.countdown.event"),
-    TOURNAMENT_COUNTDOWN(SurfPractice.getInstance().getConfig(), "settings.countdown.tournament"),
-    ENDERPEARL(SurfPractice.getInstance().getConfig(), "enderpearl-cooldown");
+    MATCH_COUNTDOWN("settings.countdown.match"),
+    SERVER_NAME("server-name"),
+    EVENT_COUNTDOWN("settings.countdown.event"),
+    TOURNAMENT_COUNTDOWN("settings.countdown.tournament"),
+    ENDERPEARL("enderpearl-cooldown");
 
     private final FileConfiguration fileConfiguration;
     private final String path;
@@ -43,7 +40,7 @@ public enum Locale {
      */
 
     Locale(String path) {
-        this.fileConfiguration = SurfPractice.getInstance().getMessagesFile().getConfig();
+        this.fileConfiguration = SurfPractice.getInstance().getConfig();
         this.path = path;
     }
 
@@ -54,7 +51,7 @@ public enum Locale {
      */
 
     public final String getString() {
-        return fileConfiguration.getString(path);
+        return CC.translate(fileConfiguration.getString(path));
     }
 
     /**
@@ -84,7 +81,7 @@ public enum Locale {
      */
 
     public final List<String> getStringList() {
-        return fileConfiguration.getStringList(path);
+        return CC.translate(fileConfiguration.getStringList(path));
     }
 
     /**
@@ -106,4 +103,5 @@ public enum Locale {
     public final void sendMessage(Player player) {
         player.sendMessage(getString());
     }
+
 }

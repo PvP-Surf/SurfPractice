@@ -9,6 +9,11 @@ settings:
     match: 5
     tournament: 5
 
+join-message:
+  - "&7&m-----------------------------"
+  - "&bWelcome to PvP Surf's Custom Practice Core"
+  - "&7&m-----------------------------"
+
 mongo:
   uri-mode: false
   normal:
