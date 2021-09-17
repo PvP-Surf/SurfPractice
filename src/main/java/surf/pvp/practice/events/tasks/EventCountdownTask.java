@@ -6,6 +6,7 @@ import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.events.Event;
 import surf.pvp.practice.events.EventStatus;
 import surf.pvp.practice.profile.Profile;
+import surf.pvp.practice.util.CC;
 
 @AllArgsConstructor
 public class EventCountdownTask extends BukkitRunnable {
@@ -55,6 +56,11 @@ public class EventCountdownTask extends BukkitRunnable {
 
         if (event.getCountdown() > 0) {
             event.setCountdown(event.getCountdown() - 1);
+
+            event.getPlayerList().forEach(eventPlayer -> {
+                eventPlayer.getPlayer().sendMessage(CC.translate("&fRound &b" + event.getRound() + " &fstarting in &b" + event.getCountdown() + "&f!"));
+            });
+
         } else {
             event.start();
         }
