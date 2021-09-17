@@ -65,6 +65,13 @@ public class ArenaCommand {
         player.sendMessage(CC.translate("&fSet the &bcenter &fposition of &b" + arena.getName() + "&fto your &blocation&f!"));
     }
 
+    @Command(value = "arena setevent", description = "Sets the event location", extraUsageData = "<arena>")
+    @Permission(value = "practice.arena")
+    public final void arenaSetEvent(@Sender Player player, @Name("arena") Arena arena) {
+        arena.setEventLocation(player.getLocation());
+        player.sendMessage(CC.translate("&fSet the event location of &b" + arena.getName() + " &fto your location!"));
+    }
+
     @Command(value = "arena addkit", description = "Adds a kit to the arena", extraUsageData = "<arena> <kit>", async = true)
     @Permission(value = "practice.arena")
     public final void arenaAddKit(@Sender Player player, @Name("arena") Arena arena, @Name("kit") Kit kit) {

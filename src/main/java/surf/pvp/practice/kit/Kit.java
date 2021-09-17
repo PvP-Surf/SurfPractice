@@ -34,6 +34,7 @@ public class Kit {
     private Material icon = Material.GOLD_SWORD;
     private String color = "&b&l";
 
+    private boolean allowEvent;
     private KitType kitType = KitType.NO_BUILD;
     private ItemStack[] armorContents, inventoryContents;
 
@@ -69,6 +70,7 @@ public class Kit {
         this.priority = document.getInteger("priority");
         this.icon = Material.valueOf(document.getString("icon").toUpperCase());
         this.color = document.getString("color");
+        this.allowEvent = document.getBoolean("event");
 
         this.queues.add(new SoloKitQueue(this, QueueRule.NO_ELO));
         this.queues.add(new SoloKitQueue(this, QueueRule.ELO));
@@ -145,6 +147,7 @@ public class Kit {
                 .append("icon", icon.name().toUpperCase())
                 .append("color", color)
                 .append("priority", priority)
+                .append("event", allowEvent)
                 .append("type", kitType.name().toUpperCase())
                 .append("armor", Serializer.itemStackArrayToBase64(armorContents))
                 .append("inventory", Serializer.itemStackArrayToBase64(inventoryContents));

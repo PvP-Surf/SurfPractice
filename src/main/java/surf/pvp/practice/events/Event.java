@@ -7,10 +7,13 @@ import org.bukkit.entity.Player;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.arena.Arena;
 import surf.pvp.practice.kit.Kit;
+import surf.pvp.practice.listener.events.impl.event.EventEndEvent;
 import surf.pvp.practice.listener.events.impl.event.PlayerJoinEventEvent;
 import surf.pvp.practice.listener.events.impl.event.PlayerLeaveEventEvent;
+import surf.pvp.practice.match.impl.EventMatch;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileState;
+import surf.pvp.practice.util.CC;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,10 +30,16 @@ public class Event {
     private final Kit kit;
     private final Arena arena;
 
+    private int countdown;
     private int round;
+    private int minimumPlayers;
 
-    public Event(Kit kit, Arena arena) {
+    private EventStatus eventStatus = EventStatus.WAITING;
+
+    public Event(Kit kit, Arena arena, int minimumPlayers) {
         this.kit = kit;
+
+        this.minimumPlayers = minimumPlayers;
         this.arena = arena;
     }
 
@@ -89,11 +98,67 @@ public class Event {
     }
 
     /**
+     * Ends the event
+     *
+     * @param winner winner of event
+     * @param loser loser of event
+     * @param round if round or not
+     */
+
+    public final void end(EventPlayer winner, EventPlayer loser, boolean round) {
+
+        if (round) {
+            this.removePlayer(loser.getPlayer());
+
+            for (EventPlayer player : playerList) {
+                player.getPlayer().sendMessage(CC.translate("&b" +
+                        winner.getPlayer().getName() + " &fhas won round &b" + this.round + "&f!"));
+            }
+
+            this.round++;
+
+            winner.setRoundWins(winner.getRoundWins() + 1);
+
+            this.countdown = 5;
+            this.eventStatus = EventStatus.IS_STARTING;
+
+            Bukkit.getPluginManager().callEvent(new EventEndEvent(this, winner, loser, true));
+            return;
+        }
+
+        this.removePlayer(loser.getPlayer());
+        Bukkit.getPluginManager().callEvent(new EventEndEvent(this, winner, loser, false));
+    }
+
+    /**
      * Starts the event
      */
 
     public final void start() {
         Collections.shuffle(playerList);
+        List<EventPlayer> playersNoPlay = playerList.stream().filter(eventPlayer -> eventPlayer.getRoundWins() == 0).collect(Collectors.toList());
+
+        if (playersNoPlay.isEmpty()) {
+            playersNoPlay = playerList;
+        }
+
+        final EventPlayer one = playersNoPlay.get(0);
+        final EventPlayer two = playersNoPlay.get(1);
+
+        final Player playerOne = one.getPlayer();
+        final Player playerTwo = two.getPlayer();
+
+        this.eventStatus = EventStatus.STARTED;
+
+        this.runMatch(playerOne, playerTwo);
+    }
+
+    /**
+     * Runs a match sync
+     */
+
+    public final synchronized void runMatch(Player playerOne, Player playerTwo) {
+        new EventMatch(this, arena, kit, playerOne, playerTwo);
     }
 
 }

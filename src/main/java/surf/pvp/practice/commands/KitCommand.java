@@ -85,6 +85,13 @@ public class KitCommand {
         player.sendMessage(CC.translate("&fLoaded the kit &b" + kit.getName() + "&f!"));
     }
 
+    @Command(value = "kit event", description = "Allows to do events with this kit", async = true, extraUsageData = "<kit>")
+    @Permission(value = "practice.kit")
+    public final void kitEventCommand(@Sender Player player, @Name("kit") Kit kit) {
+        kit.setAllowEvent(!kit.isAllowEvent());
+        player.sendMessage(CC.translate("&fThe kit &b" + kit.getName() + " &fhas now the event status of &b" + kit.isAllowEvent() + "&f!"));
+    }
+
     @Command(value = "kit list", description = "Lists all kits available", async = true)
     @Permission(value = "practice.kit")
     public final void kitListCommand(@Sender Player player) {

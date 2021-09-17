@@ -15,6 +15,7 @@ import surf.pvp.practice.commands.*;
 import surf.pvp.practice.commands.service.providers.ArenaCommandProvider;
 import surf.pvp.practice.commands.service.providers.KitCommandProvider;
 import surf.pvp.practice.commands.service.providers.MaterialCommandProvider;
+import surf.pvp.practice.events.object.EventRegistration;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.kit.KitHandler;
 import surf.pvp.practice.leaderboard.LeaderboardHandler;
@@ -104,6 +105,7 @@ public class SurfPractice extends JavaPlugin {
         pluginManager.registerEvents(new PlayerJoinListener(), this);
 
         new MatchRegistration(this);
+        new EventRegistration(this);
 
         Blade.of().binding(new BukkitBindings()).binding(new DefaultBindings()).containerCreator(BukkitCommandContainer.CREATOR)
                 .fallbackPrefix("pvpsurf").overrideCommands(true)

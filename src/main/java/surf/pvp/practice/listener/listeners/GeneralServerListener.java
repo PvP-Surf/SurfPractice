@@ -31,7 +31,8 @@ public class GeneralServerListener implements Listener {
 
         Match match = profile.getMatch();
 
-        if (match != null || profile.getProfileState().equals(ProfileState.EVENT)) {
+        if (match != null || profile.getProfileState().equals(ProfileState.EVENT_MATCH)
+        || profile.getProfileState().equals(ProfileState.IN_TOURNAMENT_MATCH)) {
             return;
         }
 

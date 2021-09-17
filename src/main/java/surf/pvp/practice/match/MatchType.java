@@ -8,6 +8,7 @@ public enum MatchType {
     ONE,
     TEAM,
     TOURNAMENT,
+    EVENT,
     FFA;
 
 }
