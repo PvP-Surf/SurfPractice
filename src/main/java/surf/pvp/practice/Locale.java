@@ -10,7 +10,6 @@ public enum Locale {
 
 
     JOIN_MESSAGE("join-message"),
-    KIT_LORE("kit-lore"),
 
     MATCH_COUNTDOWN(SurfPractice.getInstance().getConfig(), "settings.countdown.match"),
     MATCH_COUNTDOWN_MESSAGE("match.countdown"),
