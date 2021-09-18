@@ -1,21 +1,28 @@
 package surf.pvp.practice.match.impl;
 
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.arena.Arena;
 import surf.pvp.practice.enums.LocationEnum;
 import surf.pvp.practice.kit.Kit;
+import surf.pvp.practice.kit.KitType;
 import surf.pvp.practice.listener.events.impl.match.solo.MatchEndEvent;
 import surf.pvp.practice.listener.events.impl.match.solo.MatchStartEvent;
 import surf.pvp.practice.match.Match;
 import surf.pvp.practice.match.MatchStatus;
 import surf.pvp.practice.match.MatchType;
+import surf.pvp.practice.match.task.MatchWaterCheckTask;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileState;
+import surf.pvp.practice.util.PlayerUtil;
 
 import java.util.UUID;
 
 public class SoloMatch extends Match {
+
+    private MatchWaterCheckTask waterCheckTask;
 
     public SoloMatch(Arena arena, Kit kit, Player... players) {
         super(MatchType.ONE, arena, kit, players);
@@ -28,6 +35,28 @@ public class SoloMatch extends Match {
 
         one.teleport(arena.getPositionOne());
         two.teleport(arena.getPositionTwo());
+
+        switch (kit.getKitType()) {
+            case SUMO: {
+                PlayerUtil.denyMovement(one);
+                PlayerUtil.denyMovement(two);
+
+                waterCheckTask = new MatchWaterCheckTask(this);
+                waterCheckTask.runTaskTimer(SurfPractice.getInstance(), 20L, 20L);
+            }
+            case COMBO: {
+                one.addPotionEffect(PotionEffectType.SPEED.createEffect(500000000, 1));
+                two.addPotionEffect(PotionEffectType.SPEED.createEffect(500000000, 1));
+
+                one.addPotionEffect(PotionEffectType.INCREASE_DAMAGE.createEffect(500000000, 0));
+                two.addPotionEffect(PotionEffectType.INCREASE_DAMAGE.createEffect(500000000, 0));
+
+                one.setNoDamageTicks(3);
+                two.setNoDamageTicks(3);
+
+                //TODO: Add Knockback implementation to change knockback here
+            }
+        }
 
         for (Player player : players) {
             Profile profile = SurfPractice.getInstance().getProfileHandler().getProfile(player.getUniqueId());
@@ -56,6 +85,11 @@ public class SoloMatch extends Match {
             loser = winner.getUniqueId().equals(getPlayerOne().getUniqueId()) ? getPlayerOne() : getPlayerTwo();
         }
 
+        if (waterCheckTask != null) waterCheckTask.cancel();
+
+        PlayerUtil.reset(getPlayerTwo());
+        PlayerUtil.reset(getPlayerTwo());
+
         this.setMatchStatus(MatchStatus.ENDED);
         this.callEvent(new MatchEndEvent(winner, loser, this));
 
@@ -64,7 +98,7 @@ public class SoloMatch extends Match {
 
             profile.setMatch(null);
             profile.setProfileState(ProfileState.LOBBY);
-
+            profile.updateHotbar();
             player.teleport(LocationEnum.SPAWN.getLocation());
         }
     }

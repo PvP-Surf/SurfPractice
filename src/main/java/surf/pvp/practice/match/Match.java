@@ -114,6 +114,6 @@ public abstract class Match {
      */
 
     public abstract void end(UUID uuid, boolean forceEnd);
-
+    
 }
 

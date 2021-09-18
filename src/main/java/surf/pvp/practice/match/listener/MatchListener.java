@@ -7,9 +7,11 @@ import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import surf.pvp.practice.SurfPractice;
+import surf.pvp.practice.kit.KitType;
 import surf.pvp.practice.listener.events.impl.global.PracticeDeathEvent;
 import surf.pvp.practice.listener.events.impl.match.global.MatchEndCountdownEvent;
 import surf.pvp.practice.listener.events.impl.match.solo.MatchEndEvent;
@@ -27,21 +29,6 @@ import java.util.Optional;
 public class MatchListener implements Listener {
 
     private final SurfPractice surfPractice;
-
-    /**
-     * Match Listener that listens
-     * to all important events to make sure
-     * the match is going well
-     */
-
-    @EventHandler
-    public final void onMatchStartEvent(MatchStartEvent event) {
-        Player[] players = event.getMatch().getPlayers();
-
-        for (Player player : players) {
-            PlayerUtil.denyMovement(player);
-        }
-    }
 
     @EventHandler
     public final void onMatchCountdownEndEvent(MatchEndCountdownEvent event) {
@@ -90,6 +77,22 @@ public class MatchListener implements Listener {
             match.end(killer.get().getUniqueId(), false);
         } else {
             match.end(player.getUniqueId(), true);
+        }
+    }
+
+    @EventHandler
+    public final void onHit(EntityDamageByEntityEvent event) {
+        if (!(event.getEntity() instanceof Player))
+            return;
+
+        Player target = (Player) event.getEntity();
+        Profile targetProfile = SurfPractice.getInstance().getProfileHandler().getProfile(target.getUniqueId());
+
+        if (targetProfile.getMatch() == null) return;
+        Match match = targetProfile.getMatch();
+
+        if (match.getKit().getKitType().equals(KitType.SUMO)) {
+            event.setDamage(0.0);
         }
     }
 
