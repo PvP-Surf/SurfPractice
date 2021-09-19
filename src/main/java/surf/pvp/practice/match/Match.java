@@ -50,6 +50,7 @@ public abstract class Match {
         this.kit = kit;
 
         this.players = players;
+        this.start();
     }
 
     /**

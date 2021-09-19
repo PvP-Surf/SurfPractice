@@ -38,8 +38,8 @@ public class MatchCountDownTask extends BukkitRunnable {
                 match.setMatchStatus(MatchStatus.STARTED);
                 match.callEvent(new MatchEndCountdownEvent(match));
             } else {
-                profile.getPlayer().sendMessage(CC.translate(Locale.MATCH_COUNTDOWN_MESSAGE
-                        .getString().replace("{time}", String.valueOf(match.getCountdown()))));
+                profile.getPlayer().sendMessage(CC.translate("&bMatch &fstarting in &b"
+                + match.getCountdown() + "&f...."));
                 match.setCountdown(match.getCountdown() - 1);
             }
 

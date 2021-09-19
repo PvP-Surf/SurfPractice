@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import surf.pvp.practice.SurfPractice;
+import surf.pvp.practice.kit.KitRule;
 import surf.pvp.practice.kit.KitType;
 import surf.pvp.practice.listener.events.impl.global.PracticeDeathEvent;
 import surf.pvp.practice.listener.events.impl.match.global.MatchEndCountdownEvent;
@@ -91,7 +92,7 @@ public class MatchListener implements Listener {
         if (targetProfile.getMatch() == null) return;
         Match match = targetProfile.getMatch();
 
-        if (match.getKit().getKitType().equals(KitType.SUMO)) {
+        if (match.getKit().getKitRule().equals(KitRule.SUMO)) {
             event.setDamage(0.0);
         }
     }

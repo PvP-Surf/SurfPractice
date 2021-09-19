@@ -35,7 +35,10 @@ public class Kit {
     private String color = "&b&l";
 
     private boolean allowEvent;
+
     private KitType kitType = KitType.NO_BUILD;
+    private KitRule kitRule = KitRule.NONE;
+
     private ItemStack[] armorContents, inventoryContents;
 
     /**

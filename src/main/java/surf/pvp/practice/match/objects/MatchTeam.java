@@ -14,11 +14,24 @@ public class MatchTeam {
         this.players = players;
     }
 
-    public List<Player> getPlayers() {
+    /**
+     * Gets the players inside of the team
+     *
+     * @return {@link List<Player>}
+     */
+
+    public final List<Player> getPlayers() {
         return players;
     }
 
-    public int getId() {
+    /**
+     * Gets the ID of the team
+     *
+     * @return {@link Integer}
+     */
+
+    public final int getId() {
         return id;
     }
+
 }

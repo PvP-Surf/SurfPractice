@@ -40,4 +40,14 @@ public class HotbarLoadOut {
 
     }
 
+    /**
+     * Gives all spectator items to a player
+     *
+     * @param player player to give the items to
+     */
+
+    public final void giveSpectatorItems(Player player) {
+
+    }
+
 }

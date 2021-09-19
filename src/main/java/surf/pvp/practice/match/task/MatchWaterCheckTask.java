@@ -7,6 +7,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import surf.pvp.practice.SurfPractice;
+import surf.pvp.practice.kit.KitRule;
 import surf.pvp.practice.kit.KitType;
 import surf.pvp.practice.listener.events.impl.global.PracticeDeathEvent;
 import surf.pvp.practice.match.Match;
@@ -60,7 +61,7 @@ public class MatchWaterCheckTask extends BukkitRunnable {
             SoloMatch soloMatch = (SoloMatch) match;
 
             if (body.getType() == Material.WATER || body.getType() == Material.STATIONARY_WATER || head.getType() == Material.WATER || head.getType() == Material.STATIONARY_WATER) {
-                if (match.getKit().getKitType().equals(KitType.SUMO)) {
+                if (match.getKit().getKitRule().equals(KitRule.SUMO)) {
                     this.caught.add(player.getUniqueId());
 
                     match.callEvent(new PracticeDeathEvent(player, soloMatch.getOpposingPlayer(player.getUniqueId()), player.getMaxHealth()));

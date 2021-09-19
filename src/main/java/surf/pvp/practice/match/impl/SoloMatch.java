@@ -1,13 +1,11 @@
 package surf.pvp.practice.match.impl;
 
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.arena.Arena;
 import surf.pvp.practice.enums.LocationEnum;
 import surf.pvp.practice.kit.Kit;
-import surf.pvp.practice.kit.KitType;
 import surf.pvp.practice.listener.events.impl.match.solo.MatchEndEvent;
 import surf.pvp.practice.listener.events.impl.match.solo.MatchStartEvent;
 import surf.pvp.practice.match.Match;
@@ -36,7 +34,7 @@ public class SoloMatch extends Match {
         one.teleport(arena.getPositionOne());
         two.teleport(arena.getPositionTwo());
 
-        switch (kit.getKitType()) {
+        switch (kit.getKitRule()) {
             case SUMO: {
                 PlayerUtil.denyMovement(one);
                 PlayerUtil.denyMovement(two);
@@ -97,8 +95,8 @@ public class SoloMatch extends Match {
             Profile profile = SurfPractice.getInstance().getProfileHandler().getProfile(player.getUniqueId());
 
             profile.setMatch(null);
+
             profile.setProfileState(ProfileState.LOBBY);
-            profile.updateHotbar();
             player.teleport(LocationEnum.SPAWN.getLocation());
         }
     }
