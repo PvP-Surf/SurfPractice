@@ -3,7 +3,7 @@ package surf.pvp.practice.match.impl;
 import org.bukkit.entity.Player;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.arena.Arena;
-import surf.pvp.practice.enums.LocationEnum;
+import surf.pvp.practice.essentials.Essentials;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.listener.events.impl.match.solo.MatchEndEvent;
 import surf.pvp.practice.listener.events.impl.match.solo.MatchStartEvent;
@@ -92,7 +92,7 @@ public class TournamentMatch extends Match {
                 tournament.removePlayer(player);
             }
 
-            player.teleport(LocationEnum.SPAWN.getLocation());
+            player.teleport(Essentials.getInstance().getSpawnLocation());
         }
 
         tournament.end(winner.getUniqueId());

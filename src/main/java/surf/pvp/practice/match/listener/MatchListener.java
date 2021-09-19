@@ -12,12 +12,13 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.kit.KitRule;
-import surf.pvp.practice.kit.KitType;
 import surf.pvp.practice.listener.events.impl.global.PracticeDeathEvent;
 import surf.pvp.practice.listener.events.impl.match.global.MatchEndCountdownEvent;
 import surf.pvp.practice.listener.events.impl.match.solo.MatchEndEvent;
-import surf.pvp.practice.listener.events.impl.match.solo.MatchStartEvent;
 import surf.pvp.practice.match.Match;
+import surf.pvp.practice.match.impl.*;
+import surf.pvp.practice.match.objects.MatchTeam;
+import surf.pvp.practice.party.Party;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.util.CC;
 import surf.pvp.practice.util.PacketUtils;
@@ -49,11 +50,39 @@ public class MatchListener implements Listener {
         Profile profile = surfPractice.getProfileHandler().getProfile(player.getUniqueId());
 
         Match match = profile.getMatch();
+        Party party = profile.getParty();
+
+        if (party != null) {
+            if (party.getLeader().equals(player)) {
+                party.disband();
+            } else {
+                party.removeMember(player);
+            }
+        }
 
         if (match == null)
             return;
 
-        match.end(player.getUniqueId(), true);
+        if (match instanceof TeamMatch) {
+            TeamMatch teamMatch = (TeamMatch) match;
+            MatchTeam matchTeam = teamMatch.getMatchTeam(player.getUniqueId());
+
+            if (matchTeam.getPlayers().size() == 1) {
+                match.end(player.getUniqueId(), true);
+            } else {
+
+            }
+        } else if (match instanceof SoloMatch || match instanceof TournamentMatch || match instanceof EventMatch) {
+            match.end(player.getUniqueId(), true);
+        } else if (match instanceof FFAMatch) {
+            FFAMatch ffaMatch = (FFAMatch) match;
+
+            if (ffaMatch.getPlayers().length == 2) {
+                ffaMatch.end(player.getUniqueId(), true);
+            } else {
+                ffaMatch.removePlayer(player);
+            }
+        }
     }
 
     @EventHandler

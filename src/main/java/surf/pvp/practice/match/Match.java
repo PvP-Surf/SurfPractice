@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import surf.pvp.practice.Locale;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.arena.Arena;
-import surf.pvp.practice.enums.LocationEnum;
+import surf.pvp.practice.essentials.Essentials;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.listener.events.CustomEvent;
 import surf.pvp.practice.listener.events.impl.match.spectator.LeaveSpectateMatchEvent;
@@ -28,8 +28,8 @@ public abstract class Match {
     protected final Kit kit;
     protected final MatchType matchType;
 
-    protected final Player[] players;
     protected final List<Player> spectators = new ArrayList<>();
+    protected Player[] players;
 
     private int countdown = Locale.MATCH_COUNTDOWN.getInteger();
     private int timeInside;
@@ -89,7 +89,7 @@ public abstract class Match {
         final Profile profile = SurfPractice.getInstance().getProfileHandler().getProfile(player.getUniqueId());
 
         profile.setProfileState(ProfileState.LOBBY);
-        player.teleport(LocationEnum.SPAWN.getLocation());
+        player.teleport(Essentials.getInstance().getSpawnLocation());
 
         spectators.remove(player);
         Bukkit.getPluginManager().callEvent(new LeaveSpectateMatchEvent(player, this));

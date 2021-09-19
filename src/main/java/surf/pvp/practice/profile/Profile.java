@@ -40,6 +40,8 @@ public class Profile {
     private KillEffectType killEffectType;
     private ProfileSettings settings;
 
+    private final List<Party> partyInvites = new ArrayList<>();
+
     private ProfileState profileState = ProfileState.LOBBY;
     private SimpleCooldown enderPearlCooldown = new SimpleCooldown(Locale.ENDERPEARL.getInteger());
     private MatchRemains matchRemains = new MatchRemains();

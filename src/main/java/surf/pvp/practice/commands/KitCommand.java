@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.kit.Kit;
+import surf.pvp.practice.kit.KitRule;
 import surf.pvp.practice.kit.KitType;
 import surf.pvp.practice.util.CC;
 
@@ -74,6 +75,13 @@ public class KitCommand {
         kit.setInventoryContents(player.getInventory().getContents());
 
         player.sendMessage(CC.translate("&fUpdated &b" + kit.getName() + "&f's contents to &byour &finventory contents!"));
+    }
+
+    @Command(value = "kit setrule", description = "Sets the kit rule", extraUsageData = "<kit> <rule>", async = true)
+    @Permission(value = "practice.kit")
+    public final void kitSetRuleCommand(@Sender Player player, @Name("kit") Kit kit, @Name("rule") KitRule kitRule) {
+        kit.setKitRule(kitRule);
+        player.sendMessage(CC.translate("&fSet the &bkit rule &fof &b" + kit.getName() + " &fto &b" + kitRule.name().toLowerCase() + "&f!"));
     }
 
     @Command(value = "kit load", description = "Loads a kit to your inventory", extraUsageData = "<kit>")

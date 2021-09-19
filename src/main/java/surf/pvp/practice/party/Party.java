@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileState;
+import surf.pvp.practice.util.CC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +83,20 @@ public class Party {
     public final void disband() {
         this.removeMember(leader);
         members.forEach(member -> this.removeMember(member));
+    }
+
+    /**
+     * Sends a message to all party members
+     *
+     * @param strings strings to send
+     */
+
+    public final void broadcast(String... strings) {
+        members.forEach(member -> {
+            for (String s : strings) {
+                member.sendMessage(CC.translate(s));
+            }
+        });
     }
 
 }

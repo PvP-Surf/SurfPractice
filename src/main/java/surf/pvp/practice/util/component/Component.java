@@ -21,6 +21,14 @@ public class Component {
         this.textComponent = new TextComponent(StringUtils.transform(CC.translate(s)));
     }
 
+    public static Component of(String s) {
+        return new Component(s);
+    }
+
+    public static Component of(List<String> s) {
+        return new Component(s);
+    }
+
     public final Component add(Component component) {
         this.textComponent.addExtra(component.get());
         return this;

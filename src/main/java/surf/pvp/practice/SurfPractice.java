@@ -14,10 +14,13 @@ import surf.pvp.practice.clan.ClanHandler;
 import surf.pvp.practice.commands.*;
 import surf.pvp.practice.commands.service.providers.ArenaCommandProvider;
 import surf.pvp.practice.commands.service.providers.KitCommandProvider;
+import surf.pvp.practice.commands.service.providers.KitRuleCommandProvider;
 import surf.pvp.practice.commands.service.providers.MaterialCommandProvider;
+import surf.pvp.practice.essentials.Essentials;
 import surf.pvp.practice.events.object.EventRegistration;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.kit.KitHandler;
+import surf.pvp.practice.kit.KitRule;
 import surf.pvp.practice.leaderboard.LeaderboardHandler;
 import surf.pvp.practice.leaderboard.impl.LeaderboardElement;
 import surf.pvp.practice.listener.listeners.GeneralServerListener;
@@ -90,6 +93,8 @@ public class SurfPractice extends JavaPlugin {
     public void onDisable() {
         arenaHandler.getArenas().forEach(arena -> arena.save(this, false));
         kitHandler.getKits().forEach(kit -> kit.save(this, false));
+
+        Essentials.getInstance().save(this, false);
     }
 
     /**
@@ -107,14 +112,17 @@ public class SurfPractice extends JavaPlugin {
         new MatchRegistration(this);
         new EventRegistration(this);
 
+        Essentials.getInstance().load(this);
+
         Blade.of().binding(new BukkitBindings()).binding(new DefaultBindings()).containerCreator(BukkitCommandContainer.CREATOR)
                 .fallbackPrefix("surf").overrideCommands(true)
                 .bind(Kit.class, new KitCommandProvider(this))
                 .bind(Arena.class, new ArenaCommandProvider(this))
+                .bind(KitRule.class, new KitRuleCommandProvider())
                 .bind(Material.class, new MaterialCommandProvider()).build()
                 .register(new ViewCommand()).register(new QueueCommand())
                 .register(new ArenaCommand(this)).register(new KitCommand(this))
-                .register(new EssentialCommands());
+                .register(new EssentialCommands()).register(new PartyCommand(this));
     }
 
 }

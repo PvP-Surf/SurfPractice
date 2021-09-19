@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import surf.pvp.practice.SurfPractice;
 import surf.pvp.practice.arena.Arena;
-import surf.pvp.practice.enums.LocationEnum;
+import surf.pvp.practice.essentials.Essentials;
 import surf.pvp.practice.kit.Kit;
 import surf.pvp.practice.listener.events.impl.match.team.MatchTeamEndEvent;
 import surf.pvp.practice.listener.events.impl.match.team.MatchTeamStartEvent;
@@ -16,6 +16,7 @@ import surf.pvp.practice.profile.Profile;
 import surf.pvp.practice.profile.ProfileState;
 import surf.pvp.practice.util.CC;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -97,8 +98,27 @@ public class TeamMatch extends Match {
             profile.setMatch(null);
             profile.setProfileState(ProfileState.LOBBY);
 
-            player.teleport(LocationEnum.SPAWN.getLocation());
+            player.teleport(Essentials.getInstance().getSpawnLocation());
         }
+    }
+
+    public final void remove(Player player) {
+        MatchTeam matchTeam = getMatchTeam(player.getUniqueId());
+        Profile profile = SurfPractice.getInstance().getProfileHandler().getProfile(player.getUniqueId());
+
+        profile.setMatch(null);
+        profile.setProfileState(ProfileState.LOBBY);
+
+        player.teleport(Essentials.getInstance().getSpawnLocation());
+
+        matchTeam.getPlayers().remove(player);
+        List<Player> playerList = new ArrayList<>();
+
+        playerList.addAll(matchTeam.getPlayers());
+        playerList.addAll(getOpposingMatchTeam(matchTeam.getPlayers().get(0).getUniqueId()).getPlayers());
+
+
+        this.players = playerList.toArray(new Player[0]);
     }
 
     /**
